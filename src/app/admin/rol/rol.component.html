@@ -1,0 +1,96 @@
+<div class="border py-2 px-4 rounded-lg mb-4">
+    <h2 class="text-black font-sans text-2xl">Lista de usuarios</h2>
+    <span class="text-sm font-sans">Usuarios</span>
+  </div>
+  
+  <div class="border py-2 px-4 rounded-lg flex flex-col gap-4">
+    <div class="flex justify-between mb-2">
+      <h2 class="text-xl">Lista de usuarios</h2>
+      <button
+        class="text-white py-2 px-4 bg-purple-500 hover:bg-purple-700 transition-colors rounded-lg gap-4"
+      >
+        <fa-icon [icon]="faDownload" /> Exportar
+      </button>
+      <button
+        class="text-white py-2 px-4 bg-green-500 hover:bg-green-700 transition-colors rounded-lg gap-4"
+        (click)="openModal()"
+      >
+        <fa-icon [icon]="faPlus"></fa-icon> Nuevo
+      </button>
+    </div>
+    <table class="min-w-full border-collapse table-auto">
+      <thead>
+        <tr class="bg-gray-100 text-gray-700">
+          <th class="border-b py-3 px-4 text-left text-sm font-medium">Nombre</th>
+          <th class="border-b py-3 px-4 text-left text-sm font-medium">
+            Rol
+          </th>
+          <th class="border-b py-3 px-4 text-left text-sm font-medium">Accion</th>
+        </tr>
+      </thead>
+      <tbody class="text-gray-700">
+        @for (item of usuarioRoles; track $index) {
+        <tr
+          class="odd:bg-white even:bg-gray-50 hover:bg-gray-100 transition-colors duration-200"
+        >
+          <td class="border-b py-3 px-4 capitalize">{{ item.NomUsu }}</td>
+          <td class="border-b py-3 px-4 capitalize">{{ item.NomRol }}</td>
+          <td class="border-b py-3 px-4">
+            <div class="text-center">
+              <button
+                class="bg-red-500 hover:bg-red-600 text-white py-1 px-3 rounded-md shadow-sm transition-colors duration-200"
+                (click)="delete(item.CodUR)"
+              >
+                <fa-icon [icon]="faTrash" />
+              </button>
+            </div>
+          </td>
+        </tr>
+        }
+      </tbody>
+    </table>
+  </div>
+  @if (isOpenModal) {
+      
+  <div
+  class="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50 overflow-y-auto"
+  >
+  <div
+    class="bg-white rounded-lg p-6 w-11/12 md:w-2/3 max-h-[90vh] overflow-y-auto"
+  >
+      <div class="h-16 flex items-center justify-between px-4 border-b mb-8">
+          <h2 class="text-xl font-sans font-bold">Formulario de registro de usuarios</h2>
+          <button class="bg-red-500 h-6 w-6 rounded-full text-white" (click)="closeModal()"><fa-icon [icon]="faXMark" /></button>
+      </div>
+    <form [formGroup]="rolForm" (submit)="onSubmit()">
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-x-4">
+        <div class="flex flex-col gap-y-4 py-2">
+          <label for="" class="text-sm">Usuarios</label>
+          <select name="" id="" class="outline-none py-2 px-4 rounded-lg border border-blue-200" formControlName="CodUsu">
+            <option value="" selected disabled>-- Seleccione un usuario --</option>
+            @for (item of user; track $index) {
+            <option value="{{ item.CodUsu }}">{{ item.NomUsu }}</option>
+            }
+          </select>
+         
+        </div>
+        <div class="flex flex-col gap-y-4 py-2">
+          <label for="" class="text-sm">Rol</label>
+            <select name="" id="" class="outline-none py-2 px-4 rounded-lg border border-blue-200" formControlName="CodRol">
+                <option value="" selected disabled>-- Seleccione un rol --</option>
+                @for (item of roles; track $index) {
+                <option value="{{ item.CodRol }}">{{ item.NomRol }}</option>
+                }
+            </select>
+        </div>
+      </div>
+      
+     
+      <div class="h-16 border-t flex w-full items-center justify-end">
+          <button type="submit" class="bg-blue-700 hover:bg-blue-800 text-white rounded-xl py-2 px-4 flex gap-x-3"><fa-icon [icon]="faSave" /> Registrar</button>
+      </div>  
+    </form>
+  </div>
+  </div>
+  
+  }

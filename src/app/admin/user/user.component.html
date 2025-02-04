@@ -1,0 +1,192 @@
+<div class="border py-2 px-4 rounded-lg mb-4">
+  <h2 class="text-black font-sans text-2xl">Lista de usuarios</h2>
+  <span class="text-sm font-sans">Usuarios</span>
+</div>
+
+<div class="border py-2 px-4 rounded-lg flex flex-col gap-4">
+  <div class="flex justify-between mb-2">
+    <h2 class="text-xl">Lista de usuarios</h2>
+    <button
+      class="text-white py-2 px-4 bg-purple-500 hover:bg-purple-700 transition-colors rounded-lg gap-4"
+    >
+      <fa-icon [icon]="faDownload" /> Exportar
+    </button>
+    <button
+      class="text-white py-2 px-4 bg-green-500 hover:bg-green-700 transition-colors rounded-lg gap-4"
+      (click)="openModal()"
+    >
+      <fa-icon [icon]="faPlus"></fa-icon> Nuevo
+    </button>
+  </div>
+  <table class="min-w-full border-collapse table-auto">
+    <thead>
+      <tr class="bg-gray-100 text-gray-700">
+        <th class="border-b py-3 px-4 text-left text-sm font-medium">Nombre</th>
+        <th class="border-b py-3 px-4 text-left text-sm font-medium">Apellido Paterno</th>
+        <th class="border-b py-3 px-4 text-left text-sm font-medium">Apellido Materno</th>
+        <th class="border-b py-3 px-4 text-left text-sm font-medium">Documento</th>
+        <th class="border-b py-3 px-4 text-left text-sm font-medium">Correo</th>
+        <th class="border-b py-3 px-4 text-left text-sm font-medium">Celular</th>
+        <th class="border-b py-3 px-4 text-left text-sm font-medium">Sexo</th>
+        <th class="border-b py-3 px-4 text-left text-sm font-medium">Fecha de nacimiento</th>
+        <th class="border-b py-3 px-4 text-left text-sm font-medium">Registro</th>
+        <th class="border-b py-3 px-4 text-left text-sm font-medium">Accion</th>
+      </tr>
+    </thead>
+    <tbody class="text-gray-700">
+      @for (item of users; track $index) {
+      <tr
+        class="odd:bg-white even:bg-gray-50 hover:bg-gray-100 transition-colors duration-200"
+      >
+        <td class="border-b py-3 px-4 capitalize">{{ item.NomUsu }}</td>
+        <td class="border-b py-3 px-4 capitalize">{{ item.AppUsu }}</td>
+        <td class="border-b py-3 px-4 capitalize">{{ item.ApmUsu }}</td>
+        <td class="border-b py-3 px-4">{{ item.DocUsu }}</td>
+        <td class="border-b py-3 px-4">{{item.EmaUsu}}</td>
+        <td class="border-b py-3 px-4">{{ item.CelUsu }}</td>
+        <td class="border-b py-3 px-4">{{ item.sexUsu}}</td>
+        <td class="border-b py-3 px-4">{{ item.FnaUsu}}</td>
+        <td class="border-b py-3 px-4">{{ item.RegUsu}}</td>
+    
+        <td class="border-b py-3 px-4">
+          <div class="text-center">
+            <button
+              class="bg-red-500 hover:bg-red-600 text-white py-1 px-3 rounded-md shadow-sm transition-colors duration-200"
+              (click)="delete(item.CodUsu)"
+            >
+              <fa-icon [icon]="faTrash" />
+            </button>
+          </div>
+        </td>
+      </tr>
+      }
+    </tbody>
+  </table>
+</div>
+@if (isOpenModal) {
+    
+<div
+class="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50 overflow-y-auto"
+>
+<div
+  class="bg-white rounded-lg p-6 w-11/12 md:w-2/3 max-h-[90vh] overflow-y-auto"
+>
+    <div class="h-16 flex items-center justify-between px-4 border-b mb-8">
+        <h2 class="text-xl font-sans font-bold">Formulario de registro de usuarios</h2>
+        <button class="bg-red-500 h-6 w-6 rounded-full text-white" (click)="closeModal()"><fa-icon [icon]="faXMark" /></button>
+    </div>
+  <form [formGroup]="userForm" (submit)="onSubmit()">
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-x-4">
+      <div class="flex flex-col gap-y-4 py-2">
+        <label for="" class="text-sm">Nombre</label>
+        <input
+          type="text"
+          class="outline-none py-2 px-4 rounded-lg border border-blue-200 capitalize"
+          formControlName="NomUsu"
+        />
+        <small class="text-red-500 font-sm" *ngIf="userForm.get('NomUsu')?.touched">
+            {{ getError('NomUsu') }}
+          </small>
+      </div>
+      <div class="flex flex-col gap-y-4 py-2">
+        <label for="" class="text-sm">Apellido Paterno</label>
+        <input
+          type="text"
+          class="outline-none py-2 px-4 rounded-lg border border-blue-200 capitalize"
+          formControlName="AppUsu"
+        />
+        <small class="text-red-500 font-sm" *ngIf="userForm.get('AppUsu')?.touched">
+            {{ getError('AppUsu') }}
+          </small>
+      </div>
+    </div>
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-x-4">
+      <div class="flex flex-col gap-y-4 py-2">
+        <label for="" class="text-sm">Apellido Materno</label>
+        <input
+          type="text"
+          class="outline-none py-2 px-4 rounded-lg border border-blue-200 capitalize"
+          formControlName="ApmUsu"
+        />
+        <small class="text-red-500 font-sm" *ngIf="userForm.get('ApmUsu')?.touched">
+            {{ getError('ApmUsu') }}
+          </small>
+      </div>
+
+      <div class="flex flex-col gap-y-4 py-2">
+        <label for="" class="text-sm">Dni</label>
+        <input
+          type="text"
+          class="outline-none py-2 px-4 rounded-lg border border-blue-200"
+          formControlName="DocUsu"
+        />
+        <small class="text-red-500 font-sm" *ngIf="userForm.get('DocUsu')?.touched">
+            {{ getError('DocUsu') }}
+          </small>
+      </div>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-x-4">
+      <div class="flex flex-col gap-y-4 py-2">
+        <label for="" class="text-sm">Correo</label>
+        <input
+          type="email"
+          class="outline-none py-2 px-4 rounded-lg border border-blue-200"
+          formControlName="EmaUsu"
+        />
+        <small class="text-red-500 font-sm" *ngIf="userForm.get('EmaUsu')?.touched">
+            {{ getError('EmaUsu') }}
+          </small>
+      </div>
+
+      <div class="flex flex-col gap-y-4 py-2">
+        <label for="" class="text-sm">Telefono</label>
+        <input
+          type="text"
+          class="outline-none py-2 px-4 rounded-lg border border-blue-200"
+          formControlName="CelUsu"
+        />
+        <small class="text-red-500 font-sm" *ngIf="userForm.get('CelUsu')?.touched">
+            {{ getError('CelUsu') }}
+          </small>
+      </div>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-x-4">
+      <div class="flex flex-col gap-y-4 py-2">
+        <label for="" class="text-sm">Sexo</label>
+        <select
+          name=""
+          formControlName="sexUsu"
+          id=""
+          class="py-2 px-4 outline-none border border-blue-200 rounded-lg"
+        >
+          <option value="" disabled selected>Seleccione un genero</option>
+          <option value="M">Masculino</option>
+          <option value="F">Femenino</option>
+        </select>
+        <small class="text-red-500 font-sm" *ngIf="userForm.get('sexUsu')?.touched">
+            {{ getError('sexUsu') }}
+          </small>
+      </div>
+
+      <div class="flex flex-col gap-y-4 py-2">
+        <label for="" class="text-sm">Fecha de nacimiento</label>
+        <input
+          type="date"
+          class="outline-none py-2 px-4 rounded-lg border border-blue-200"
+          formControlName="FnaUsu"
+        />
+        <small class="text-red-500 font-sm" *ngIf="userForm.get('AppUsu')?.touched">
+            {{ getError('FnaUsu') }}
+          </small>
+      </div>
+    </div>
+    <div class="h-16 border-t flex w-full items-center justify-end">
+        <button type="submit" class="bg-blue-700 hover:bg-blue-800 text-white rounded-xl py-2 px-4 flex gap-x-3"><fa-icon [icon]="faSave" /> Registrar</button>
+    </div>  
+  </form>
+</div>
+</div>
+
+}

@@ -1,0 +1,17 @@
+<nav class="h-20 border-b flex justify-between items-center px-4 bg-gray-100">
+   <!-- Izquierda: Nombre del usuario -->
+   <div class="flex items-center">
+     <span *ngIf="user" class="text-gray-700 text-lg capitalize">Bienvenido, {{ user.NomUsu }}</span>
+   </div>
+ 
+   <!-- Derecha: Botón de cerrar sesión -->
+   <div class="flex items-center">
+     <button
+       class="bg-red-500 text-white hover:bg-red-700 transition-colors rounded-lg py-2 px-4"
+       (click)="logout()"
+     >
+       Cerrar Sesión
+     </button>
+   </div>
+ </nav>
+ 

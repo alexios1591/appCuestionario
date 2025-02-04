@@ -1,0 +1,253 @@
+<div
+  class="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50 overflow-y-auto"
+>
+  <div class="bg-white rounded-lg p-6 w-11/12 md:w-2/3 max-h-[90vh] overflow-y-auto">
+    <div class="flex justify-between items-center">
+        <h2 class="text-xl font-bold mb-4">
+            Historial de {{ cliente?.NomClie }} {{ cliente?.AppClie }}
+          </h2>
+          <button
+            class="mt-4 bg-red-500 text-white py-2 px-4 rounded-lg hover:bg-red-600 transition"
+            (click)="closeModal()"
+          >
+            <fa-icon [icon]="faXMark"/>
+          </button>
+    </div>
+    <div class="flex items-center justify-between py-4">
+      <p>Aquí se mostrará el historial del cliente.</p>
+      <p class="border border-blue-300 rounded-xl py-2 px-4">
+        total: {{ total }}
+      </p>
+      
+    </div>
+    <div>
+      <div class="border py-4 px-6 rounded-lg shadow-md">
+        <h2 class="text-2xl font-bold mb-4">Cuestionario</h2>
+        <table class="min-w-full border-collapse table-auto">
+          <thead>
+            <tr class="bg-gray-100 text-gray-700">
+              <th class="border-b py-3 px-4 text-left text-sm font-medium">
+                Pregunta
+              </th>
+              <th class="border-b py-3 px-4 text-left text-sm font-medium">
+                Puntuación
+              </th>
+            </tr>
+          </thead>
+          <tbody class="text-gray-700">
+            <tr class="odd:bg-white even:bg-gray-50">
+              <td class="border-b py-3 px-4">
+                1. ¿Qué tan seguido has tenido poco interés o placer en hacer
+                cosas?
+              </td>
+              <td class="border-b py-3 px-4">
+                <input
+                  type="number"
+                  min="0"
+                  max="10"
+                  disabled
+                  [value]="preguntas?.Pre1 || '0'"
+                  class="border py-1 px-2 w-full rounded-lg text-center"
+                />
+              </td>
+            </tr>
+            <tr class="odd:bg-white even:bg-gray-50">
+              <td class="border-b py-3 px-4">
+                2. ¿Te has sentido decaída, deprimida o sin esperanzas?
+              </td>
+              <td class="border-b py-3 px-4">
+                <input
+                  type="number"
+                  min="0"
+                  max="10"
+                  disabled
+                  [value]="preguntas?.Pre2 || '0'"
+                  class="border py-1 px-2 w-full rounded-lg text-center"
+                />
+              </td>
+            </tr>
+            <tr class="odd:bg-white even:bg-gray-50">
+              <td class="border-b py-3 px-4">
+                3. ¿Has tenido dificultades para dormir?
+              </td>
+              <td class="border-b py-3 px-4">
+                <input
+                type="number"
+                min="0"
+                max="10"
+                disabled
+                [value]="preguntas?.Pre3 || '0'"
+                class="border py-1 px-2 w-full rounded-lg text-center"
+              />
+              </td>
+            </tr>
+            <tr class="odd:bg-white even:bg-gray-50">
+              <td class="border-b py-3 px-4">
+                4. ¿Te has sentido cansada o con poca energía?
+              </td>
+              <td class="border-b py-3 px-4">
+                <input
+                type="number"
+                min="0"
+                max="10"
+                disabled
+                [value]="preguntas?.Pre4 || '0'"
+                class="border py-1 px-2 w-full rounded-lg text-center"
+              />
+              </td>
+            </tr>
+            <tr class="odd:bg-white even:bg-gray-50">
+              <td class="border-b py-3 px-4">
+                5. ¿Has estado sin ganas de comer o has comido en exceso?
+              </td>
+              <td class="border-b py-3 px-4">
+                <input
+                  type="number"
+                  min="0"
+                  max="10"
+                  disabled
+                  [value]="preguntas?.Pre5 || '0'"
+                  class="border py-1 px-2 w-full rounded-lg text-center"
+                />
+              </td>
+            </tr>
+            <tr class="odd:bg-white even:bg-gray-50">
+              <td class="border-b py-3 px-4">
+                6. ¿Te has sentido mal contigo misma?
+              </td>
+              <td class="border-b py-3 px-4">
+                <input
+                type="number"
+                min="0"
+                max="10"
+                disabled
+                [value]="preguntas?.Pre6 || '0'"
+                class="border py-1 px-2 w-full rounded-lg text-center"
+              />
+              </td>
+            </tr>
+            <tr class="odd:bg-white even:bg-gray-50">
+              <td class="border-b py-3 px-4">
+                7. ¿Has tenido dificultades para concentrarte?
+              </td>
+              <td class="border-b py-3 px-4">
+                <input
+                type="number"
+                min="0"
+                max="10"
+                disabled
+                [value]="preguntas?.Pre7 || '0'"
+                class="border py-1 px-2 w-full rounded-lg text-center"
+              />
+              </td>
+            </tr>
+            <tr class="odd:bg-white even:bg-gray-50">
+              <td class="border-b py-3 px-4">
+                8. ¿Te has movido o hablado tan lento?
+              </td>
+              <td class="border-b py-3 px-4">
+                <input
+                type="number"
+                min="0"
+                max="10"
+                disabled
+                [value]="preguntas?.Pre8 || '0'"
+                class="border py-1 px-2 w-full rounded-lg text-center"
+              />
+              </td>
+            </tr>
+            <tr class="odd:bg-white even:bg-gray-50">
+              <td class="border-b py-3 px-4">
+                9. ¿Has tenido pensamientos como: "estaría mejor muerta"?
+              </td>
+              <td class="border-b py-3 px-4">
+                <input
+                type="number"
+                min="0"
+                max="10"
+                disabled
+                [value]="preguntas?.Pre9 || '0'"
+                class="border py-1 px-2 w-full rounded-lg text-center"
+              />
+              </td>
+            </tr>
+            <tr class="odd:bg-white even:bg-gray-50">
+              <td class="border-b py-3 px-4">
+                10. Si marcaste cualquiera de los problemas anteriores con un
+                nivel mayor a 0, ¿qué tanta dificultad te han ocasionado en tus
+                quehaceres como: trabajo, tareas del hogar, o llevarte bien con
+                otras personas?
+              </td>
+              <td class="border-b py-3 px-4">
+                <input
+                type="number"
+                min="0"
+                max="10"
+                disabled
+                [value]="preguntas?.Pre10 || '0'"
+                class="border py-1 px-2 w-full rounded-lg text-center"
+              />
+              </td>
+            </tr>
+            <tr class="odd:bg-white even:bg-gray-50">
+              <td class="border-b py-3 px-4">
+                11. ¿Cómo está tu estado de ánimo el día de hoy en la escala del
+                1 al 9?
+              </td>
+              <td class="border-b py-3 px-4">
+                <input
+                type="number"
+                min="0"
+                max="10"
+                disabled
+                [value]="preguntas?.Pre11 || '0'"
+                class="border py-1 px-2 w-full rounded-lg text-center"
+              />
+              </td>
+            </tr>
+            <tr class="odd:bg-white even:bg-gray-50">
+              <td class="border-b py-3 px-4">
+                12. ¿Sufriste algún tipo de violencia?
+              </td>
+              <td class="border-b py-3 px-4">
+                <input
+                type="text"
+                disabled
+                [value]="preguntas?.Pre12 || '0'"
+                class="border py-1 px-2 w-full rounded-lg text-center"
+              />
+              </td>
+            </tr>
+            <tr class="odd:bg-white even:bg-gray-50">
+              <td class="border-b py-3 px-4">
+                13. Si la respuesta anterior fue "Sí", ¿de parte de quién?
+              </td>
+              <td class="border-b py-3 px-4">
+                <input
+                type="text"
+                disabled
+                [value]="preguntas?.Pre13 || 's/n'"
+                class="border py-1 px-2 w-full rounded-lg text-center"
+              />
+              </td>
+            </tr>
+            <tr class="odd:bg-white even:bg-gray-50">
+              <td class="border-b py-3 px-4">14. Observaciones</td>
+              <td class="border-b py-3 px-4">
+                <input
+                  type="text"
+                  disabled
+                  [value]="preguntas?.Pre14 || 's/n'"
+                  class="border py-1 px-2 w-full rounded-lg text-center"
+                />
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div></div>
+    </div>
+    
+  </div>
+</div>

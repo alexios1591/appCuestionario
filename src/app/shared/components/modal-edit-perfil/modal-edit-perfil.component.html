@@ -1,0 +1,91 @@
+<div
+  class="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50 overflow-y-auto"
+>
+  <div
+    class="bg-white rounded-lg p-6 text-black w-11/12 md:w-2/3 max-h-[90vh] overflow-y-auto"
+  >
+    <div class="flex justify-between items-center">
+      <h2 class="text-xl font-bold mb-4">
+        Editar Perfil, Nombre de Usuario: <span class="capitalize">{{ user.NomUsu }}</span>
+      </h2>
+      <button
+        class="mt-4 bg-red-500 text-white py-2 px-4 rounded-lg hover:bg-red-600 transition"
+        (click)="closeModal()"
+      >
+        <fa-icon [icon]="faXMark" />
+      </button>
+    </div>
+    <div>
+      <div>
+        <form [formGroup]="userForm" (submit)="onSubmit()">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-x-4">
+              <div class="flex flex-col gap-y-4 py-2">
+                <label for="" class="text-sm">Nombre</label>
+                <input
+                  type="text"
+                  class="outline-none py-2 px-4 rounded-lg border border-blue-200 capitalize"
+                  formControlName="NomUsu"
+                />
+                <app-validation-error [control]="NomUsuFb" />
+              </div>
+              <div class="flex flex-col gap-y-4 py-2">
+                <label for="" class="text-sm">Apellido Paterno</label>
+                <input
+                  type="text"
+                  class="outline-none py-2 px-4 rounded-lg border border-blue-200 capitalize"
+                  formControlName="AppUsu"
+                />
+                <app-validation-error [control]="AppUsuFb" />
+              </div>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-x-4">
+              <div class="flex flex-col gap-y-4 py-2">
+                <label for="" class="text-sm">Apellido Materno</label>
+                <input
+                  type="text"
+                  class="outline-none py-2 px-4 rounded-lg border border-blue-200 capitalize"
+                  formControlName="ApmUsu"
+                />
+                <app-validation-error [control]="ApmUsuFb" />
+              </div>
+        
+              <div class="flex flex-col gap-y-4 py-2">
+                <label for="" class="text-sm">Dni</label>
+                <input
+                  type="text"
+                  class="outline-none py-2 px-4 rounded-lg border border-blue-200"
+                  formControlName="DocUsu"
+                />
+                <app-validation-error [control]="DocUsuFb" />
+              </div>
+            </div>
+        
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-x-4">
+              <div class="flex flex-col gap-y-4 py-2">
+                <label for="" class="text-sm">Correo</label>
+                <input
+                  type="email"
+                  class="outline-none py-2 px-4 rounded-lg border border-blue-200"
+                  formControlName="EmaUsu"
+                />
+                <app-validation-error [control]="EmaUsuFb" />
+              </div>
+        
+              <div class="flex flex-col gap-y-4 py-2">
+                <label for="" class="text-sm">Telefono</label>
+                <input
+                  type="text"
+                  class="outline-none py-2 px-4 rounded-lg border border-blue-200"
+                  formControlName="CelUsu"
+                />
+                <app-validation-error [control]="CelUsuFb" />
+              </div>
+            </div>
+            <div class="h-16 border-t flex w-full items-center justify-end">
+                <button type="submit" class="bg-blue-700 hover:bg-blue-800 text-white rounded-xl py-2 px-4 flex gap-x-3"><fa-icon [icon]="faSave" /> Registrar</button>
+            </div>  
+          </form>
+      </div>
+    </div>
+  </div>
+</div>

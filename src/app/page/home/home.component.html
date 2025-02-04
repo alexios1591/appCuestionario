@@ -1,0 +1,46 @@
+<div class="bg-fondo flex justify-center items-center h-svh relative w-svw">
+  <a
+    routerLink="login"
+    class="bg-blue-600 hover:bg-blue-700 text-white rounded-xl py-2 px-4 absolute top-2 left-2 transition-colors cursor-pointer"
+  >
+    Admin
+  </a>
+
+  <div class="bg-gray-900/50 p-8 rounded-xl text-white flex flex-col gap-4">
+    <h1 class="text-center text-3xl font-sans">
+      CUESTIONARIO SOBRE SALUD PERSONAL-9<br />(PHQ-9)
+    </h1>
+    <div class="w-full text-lg text-center">
+      El presente cuestionario tiene como objetivo<br />consultar respecto a tu
+      salud personal.
+    </div>
+
+    <form [formGroup]="validar" (ngSubmit)="onSubmit()">
+      <div class="flex flex-col gap-4">
+        <div class="flex flex-col gap-4">
+          <label for="dni" class="text-lg font-sans">Ingrese el código</label>
+          <input
+            type="text"
+            id="dni"
+            class="py-2 px-4 rounded-lg outline-none text-black"
+            formControlName="dni"
+            required
+          />
+          <div *ngIf="dni?.touched && dni?.invalid" class="text-red-500">
+            <div *ngIf="dni?.hasError('required')">El campo es obligatorio.</div>
+            <div *ngIf="dni?.hasError('pattern')">Debe ser un código válido (8 dígitos).</div>
+          </div>
+        </div>
+        <div class="flex items-center justify-center">
+          <button
+            type="submit"
+            class="bg-purple-600 hover:bg-purple-700 py-2 px-4 rounded-xl text-lg"
+            [disabled]="validar.invalid"
+          >
+            Iniciar
+          </button>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>

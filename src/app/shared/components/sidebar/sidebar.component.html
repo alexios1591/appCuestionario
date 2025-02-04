@@ -1,0 +1,76 @@
+<aside class="h-svh">
+  <div class="h-20 flex items-center justify-center border-b gap-x-4">
+    <fa-icon [icon]="faCoffe" class="text-4xl text-gray-100"></fa-icon
+    ><span class="text-4xl">PHQ-9</span>
+  </div>
+  <div class="border-y h-60">
+    @if (user) {
+    <div class="flex flex-col gap-y-2 items-center justify-center pt-4">
+      <img src="./assets/perfil.jfif" alt="" class="w-36 rounded-full" />
+      <span class="text-gray-100 text-lg capitalize"
+        >Bienvenido, {{ user.NomUsu }}</span
+      >
+      <div class="flex items-center justify-between w-full px-8">
+        <span>
+          {{ user.EmaUsu }}
+        </span>
+        <fa-icon [icon]="faEdit" class="text-gray-100 text-xl cursor-pointer" title="Editar" (click)="open()"></fa-icon>
+      </div>
+    </div>
+    }
+  </div>
+  <div class="flex flex-col justify-between h-[calc(100%-20rem)]">
+    <ul class="flex flex-col py-8 px-2 gap-2">
+      <li class="rounded-lg">
+        <a
+          routerLink="/dashboard"
+          class="flex gap-4 py-2 px-4 text-gray-100 hover:bg-white hover:text-black transition-colors rounded-lg text-xl"
+          [ngClass]="{'bg-white !text-black': isActive('/dashboard')}"
+        >
+          <fa-icon [icon]="faHome"></fa-icon>Dashboard
+        </a>
+      </li>
+      <li class="rounded-lg">
+        <a
+          routerLink="/admin"
+          class="flex gap-4 py-2 px-4 text-gray-100 hover:bg-white hover:text-black transition-colors rounded-lg"
+          [ngClass]="{'bg-white !text-black': isActive('/admin')}"
+        >
+          <fa-icon [icon]="faBars"></fa-icon>Encuestados
+        </a>
+      </li>
+      <li class="rounded-lg">
+        <a
+          routerLink="/admin/user"
+          class="flex gap-4 py-2 px-4 text-gray-100 hover:bg-white hover:text-black transition-colors rounded-lg"
+          [ngClass]="{'bg-white !text-black': isActive('/admin/user')}"
+        >
+          <fa-icon [icon]="faUser"></fa-icon>Usuarios
+        </a>
+      </li>
+      <li class="rounded-lg">
+        <a
+          routerLink="/admin/rol"
+          class="flex gap-4 py-2 px-4 text-gray-100 hover:bg-white hover:text-black transition-colors rounded-lg"
+          [ngClass]="{'bg-white !text-black': isActive('/admin/rol')}"
+        >
+          <fa-icon [icon]="faUser"></fa-icon>Roles
+        </a>
+      </li>
+    </ul>
+    
+    <div class="flex items-center py-2 justify-center">
+      <button
+        class="bg-red-500 text-white hover:bg-red-700 transition-colors rounded-lg py-2 px-4"
+        (click)="logout()"
+      >
+        Cerrar Sesión
+      </button>
+    </div>
+  </div>
+</aside>
+
+
+@if (isOpenModal) {
+  <app-modal-edit-perfil  (close)="cerrarModal()"></app-modal-edit-perfil>
+}

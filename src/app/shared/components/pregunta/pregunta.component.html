@@ -1,0 +1,62 @@
+<div class="flex flex-col gap-y-4 mb-4">
+    <span class="text-lg mb-2">{{ indice + 1 }}. {{ pregunta }}</span>
+    <div class="options flex justify-center gap-4">
+      <label class="flex items-center cursor-pointer">
+        <input
+          type="radio"
+          [formControl]="control"
+          [value]="0"
+          [name]="'question-' + indice"
+          class="peer hidden"
+        />
+        <span
+          class="w-8 h-8 rounded-full bg-green-600 text-white border border-gray-400 flex items-center justify-center peer-checked:bg-blue-500 peer-checked:border-blue-500 transition-all"
+        >
+          0
+        </span>
+      </label>
+      <label class="flex items-center cursor-pointer">
+        <input
+          type="radio"
+          [formControl]="control"
+          [value]="1"
+          [name]="'question-' + indice"
+          class="peer hidden"
+        />
+        <span
+          class="w-8 h-8 rounded-full bg-yellow-600 text-white border border-gray-400 flex items-center justify-center peer-checked:bg-blue-500 peer-checked:border-blue-500 transition-all"
+        >
+          1
+        </span>
+      </label>
+      <label class="flex items-center cursor-pointer">
+        <input
+          type="radio"
+          [formControl]="control"
+          [value]="2"
+          [name]="'question-' + indice"
+          class="peer hidden"
+        />
+        <span
+          class="w-8 h-8 rounded-full bg-orange-600 text-white border border-gray-400 flex items-center justify-center peer-checked:bg-blue-500 peer-checked:border-blue-500 transition-all"
+        >
+          2
+        </span>
+      </label>
+      <label class="flex items-center cursor-pointer">
+        <input
+          type="radio"
+          [formControl]="control"
+          [value]="3"
+          [name]="'question-' + indice"
+          class="peer hidden"
+        />
+        <span
+          class="w-8 h-8 rounded-full bg-red-600 text-white border border-gray-400 flex items-center justify-center peer-checked:bg-blue-500 peer-checked:border-blue-500 transition-all"
+        >
+          3
+        </span>
+      </label>
+    </div>
+  </div>
+  

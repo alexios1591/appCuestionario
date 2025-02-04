@@ -1,0 +1,45 @@
+<div class="bg-blue-600 h-screen flex justify-center items-center">
+  <div class="bg-white p-8 rounded-xl">
+    <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+      <div class="flex flex-col gap-4 w-[400px]">
+        <h2 class="text-2xl text-center">Iniciar sesión</h2>
+        <div class="flex flex-col gap-2">
+          <label for="nombre_user">Nombre</label>
+          <input
+            type="text"
+            id="nombre_user"
+            formControlName="NomUsu"
+            class="border border-blue-500 py-2 px-4 rounded-xl outline-none"
+            placeholder="Nombre de usuario"
+          />
+          <small *ngIf="loginForm.get('nombre_user')?.invalid && loginForm.get('nombre_user')?.touched" class="text-red-500">
+            El nombre de usuario es obligatorio y debe tener al menos 3 caracteres.
+          </small>
+        </div>
+        <div class="flex flex-col gap-2">
+          <label for="contrasenia">Contraseña</label>
+          <input
+            type="password"
+            id="contrasenia"
+            formControlName="PassUsu"
+            class="border border-blue-500 py-2 px-4 rounded-xl outline-none"
+            placeholder="Contraseña"
+          />
+          <small *ngIf="loginForm.get('contrasenia')?.invalid && loginForm.get('contrasenia')?.touched" class="text-red-500">
+            La contraseña es obligatoria y debe tener al menos 6 caracteres.
+          </small>
+        </div>
+        <div class="flex items-center justify-center">
+          <button
+            type="submit"
+            class="py-2 px-4 rounded-xl bg-blue-600 hover:bg-blue-700 text-white"
+            [disabled]="loginForm.invalid"
+          >
+            Iniciar sesión
+          </button>
+        </div>
+      </div>
+    </form>
+    <a class="absolute left-2 top-2 py-2 px-4 rounded-lg bg-purple-700 hover:bg-purple-800 transition-colors text-white shadow-xl" routerLink="../">Pagina de inicio</a>
+  </div>
+</div>
