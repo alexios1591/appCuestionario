@@ -17,13 +17,16 @@ export class HomeComponent {
   filteredClientes: any[] = [];
   dniSearch: string = '';
   user: any = null;
+  currentPage = 1;
+  lastPage = 1;
+  maxVisiblePages = 7;
 
   constructor(private clienteService: ClienteService) {}
 
   ngOnInit(): void {
     this.getUserFromLocalStorage();
     if (this.user && this.user.CodUsu) {
-      this.getClientes(this.user.CodUsu);
+      this.getClientes(this.user.CodUsu, this.currentPage);
     } else {
       console.error('Usuario no encontrado en localStorage o mal formado');
     }
@@ -45,14 +48,17 @@ export class HomeComponent {
     }
   }
 
-  
-  getClientes(codUsu: number): void {
-    this.clienteService.getAll(codUsu).subscribe(
+  getClientes(codUsu: number, currentPage: number): void {
+    this.clienteService.getAll(codUsu, currentPage).subscribe(
       (data) => {
-        this.clientes = data.map((cliente: any) => ({
+        this.clientes = data.data.map((cliente: any) => ({
           ...cliente,
           DniClie: String(cliente.DniClie || ''),
         }));
+
+        this.currentPage = data.current_page;
+        this.lastPage = data.last_page;
+
         this.filteredClientes = this.clientes;
         console.log(this.clientes);
       },
@@ -86,5 +92,52 @@ export class HomeComponent {
   cerrarModal() {
     this.mostrarModal = false;
     this.clienteSeleccionado = null;
+  }
+
+  get pages(): (number | string)[] {
+    const pages: (number | string)[] = [];
+
+    const middleCount = this.maxVisiblePages - 4;
+    let left = Math.max(2, this.currentPage - Math.floor(middleCount / 2));
+    let right = Math.min(this.lastPage - 1, left + middleCount - 1);
+
+    if (this.currentPage <= Math.ceil(middleCount / 2) + 1) {
+      left = 2;
+      right = Math.min(this.lastPage - 1, middleCount + 1);
+    }
+
+    if (this.currentPage >= this.lastPage - Math.ceil(middleCount / 2) - 1) {
+      right = this.lastPage - 1;
+      left = Math.max(2, this.lastPage - middleCount);
+    }
+
+    if (left > 2) {
+      pages.push(1, '...');
+    } else {
+      pages.push(1);
+      right++;
+    }
+
+    if (right >= this.lastPage - 1) {
+      left--;
+    }
+
+    for (let i = left; i <= right; i++) {
+      pages.push(i);
+    }
+
+    if (right < this.lastPage - 1) {
+      pages.push('...', this.lastPage);
+    } else {
+      pages.push(this.lastPage);
+    }
+
+    return pages;
+  }
+
+  goToPage(page: number | string) {
+    if (typeof page === 'string' || page < 1 || page > this.lastPage) return;
+    this.currentPage = page;
+    this.getClientes(this.user.CodUsu, this.currentPage);
   }
 }

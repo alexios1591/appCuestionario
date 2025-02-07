@@ -23,13 +23,25 @@
     <thead>
       <tr class="bg-gray-100 text-gray-700">
         <th class="border-b py-3 px-4 text-left text-sm font-medium">Nombre</th>
-        <th class="border-b py-3 px-4 text-left text-sm font-medium"> Apellido</th>
-        <th class="border-b py-3 px-4 text-left text-sm font-medium"> Localidad</th>
-        <th class="border-b py-3 px-4 text-left text-sm font-medium"> DNI</th>
-        <th class="border-b py-3 px-4 text-left text-sm font-medium"> Fecha nacimiento</th>
-        <th class="border-b py-3 px-4 text-left text-sm font-medium"> Celular</th>
-        <th class="border-b py-3 px-4 text-left text-sm font-medium"> Registro</th>
-        <th class="border-b py-3 px-4 text-left text-sm font-medium"> Ver historial</th>
+        <th class="border-b py-3 px-4 text-left text-sm font-medium">
+          Apellido
+        </th>
+        <th class="border-b py-3 px-4 text-left text-sm font-medium">
+          Localidad
+        </th>
+        <th class="border-b py-3 px-4 text-left text-sm font-medium">DNI</th>
+        <th class="border-b py-3 px-4 text-left text-sm font-medium">
+          Fecha nacimiento
+        </th>
+        <th class="border-b py-3 px-4 text-left text-sm font-medium">
+          Celular
+        </th>
+        <th class="border-b py-3 px-4 text-left text-sm font-medium">
+          Registro
+        </th>
+        <th class="border-b py-3 px-4 text-left text-sm font-medium">
+          Ver historial
+        </th>
       </tr>
     </thead>
     <tbody class="text-gray-700">
@@ -39,7 +51,7 @@
       >
         <td class="border-b py-3 px-4">{{ item.NomClie }}</td>
         <td class="border-b py-3 px-4">{{ item.AppClie }}</td>
-        <td class="border-b py-3 px-4">{{ item.localidad}}</td>
+        <td class="border-b py-3 px-4">{{ item.localidad }}</td>
         <td class="border-b py-3 px-4">{{ item.DniClie }}</td>
         <td class="border-b py-3 px-4">{{ item.FnaClie }}</td>
         <td class="border-b py-3 px-4">{{ item.CelClie }}</td>
@@ -47,15 +59,41 @@
 
         <td class="border-b py-3 px-4">
           <div class="text-center">
-            <button (click)="abrirModal(item)"
+            <button
+              (click)="abrirModal(item)"
               class="bg-blue-500 hover:bg-blue-600 text-white py-1 px-3 rounded-md shadow-sm transition-colors duration-200"
-            >Ver historial</button>
+            >
+              Ver historial
+            </button>
           </div>
         </td>
       </tr>
       }
     </tbody>
   </table>
+
+  <div class="pagination self-end">
+    <span
+      (click)="goToPage(currentPage - 1)"
+      [class.disabled]="currentPage === 1"
+      >&laquo;</span
+    >
+
+    <span
+      *ngFor="let page of pages"
+      (click)="goToPage(page)"
+      [class.active]="page === currentPage"
+      [class.disabled]="page === '...'"
+    >
+      {{ page }}
+    </span>
+
+    <span
+      (click)="goToPage(currentPage + 1)"
+      [class.disabled]="currentPage === lastPage"
+      >&raquo;</span
+    >
+  </div>
 </div>
 @if (mostrarModal) {
 <app-modal [cliente]="clienteSeleccionado" (close)="cerrarModal()"></app-modal>
