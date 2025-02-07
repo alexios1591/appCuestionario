@@ -3,28 +3,29 @@ import { inject, Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class ClienteService {
+  apiUrl = 'http://127.0.0.1:8000/api';
 
-  apiUrl = "http://127.0.0.1:8000/api"
+  private httpClient = inject(HttpClient);
 
-  private httpClient = inject(HttpClient)
-
-  getAll(id: number, page: number, dni:  string): Observable<any> {
-    return this.httpClient.get<any>(`${this.apiUrl}/clientes/getall/${id}?page=${page}&dni=${dni}`);
+  getAll(id: number, page: number, dni: string): Observable<any> {
+    return this.httpClient.get<any>(
+      `${this.apiUrl}/clientes/getall/${id}?page=${page}&dni=${dni}`
+    );
   }
 
   getCustomers(): Observable<any> {
     return this.httpClient.get<any>(`${this.apiUrl}/customers`);
   }
 
-  insert(cliente: any): Observable<any>{
+  insert(cliente: any): Observable<any> {
     return this.httpClient.post<any>(`${this.apiUrl}/cliente`, cliente);
   }
 
-  getByDni(dni: string): Observable<any>{
-    return this.httpClient.get<any>(`${this.apiUrl}/clientes/${dni}`)
+  getByDni(dni: string): Observable<any> {
+    return this.httpClient.get<any>(`${this.apiUrl}/clientes/${dni}`);
   }
 
 }
