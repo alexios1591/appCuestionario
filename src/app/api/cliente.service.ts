@@ -11,16 +11,16 @@ export class ClienteService {
 
   private httpClient = inject(HttpClient)
 
-  getAll(id: number, page: number): Observable<any> {
-    return this.httpClient.get<any>(`${this.apiUrl}/clientes/getall/${id}?page=${page}`);  
+  getAll(id: number, page: number, dni:  string): Observable<any> {
+    return this.httpClient.get<any>(`${this.apiUrl}/clientes/getall/${id}?page=${page}&dni=${dni}`);
   }
 
   getCustomers(): Observable<any> {
-    return this.httpClient.get<any>(`${this.apiUrl}/customers`);  
+    return this.httpClient.get<any>(`${this.apiUrl}/customers`);
   }
 
   insert(cliente: any): Observable<any>{
-    return this.httpClient.post<any>(`${this.apiUrl}/cliente`, cliente); 
+    return this.httpClient.post<any>(`${this.apiUrl}/cliente`, cliente);
   }
 
   getByDni(dni: string): Observable<any>{
