@@ -15,18 +15,20 @@
         [(ngModel)]="dniSearch"
         (input)="filterClientes()"
       />
-      <a
-        class="text-white py-2 px-4 bg-red-500 hover:bg-red-700 transition-colors rounded-lg gap-4 inline-block text-center"
-        href="http://localhost:8000/api/clientes/export-pdf"
-      >
-        <fa-icon [icon]="faFilePdf" /> Exportar PDF
-      </a>
-      <a
-        class="text-white py-2 px-4 bg-green-500 hover:bg-green-700 transition-colors rounded-lg gap-4 inline-block text-center"
-        href="http://localhost:8000/api/clientes/export-excel"
-      >
-        <fa-icon [icon]="faFileExcel" /> Exportar Excel
-      </a>
+      <ng-container *ngIf="user.rol === 'admin'">
+        <a
+          class="text-white py-2 px-4 bg-red-500 hover:bg-red-700 transition-colors rounded-lg gap-4 inline-block text-center"
+          href="http://localhost:8000/api/clientes/export-pdf"
+        >
+          <fa-icon [icon]="faFilePdf" /> Exportar PDF
+        </a>
+        <a
+          class="text-white py-2 px-4 bg-green-500 hover:bg-green-700 transition-colors rounded-lg gap-4 inline-block text-center"
+          href="http://localhost:8000/api/clientes/export-excel"
+        >
+          <fa-icon [icon]="faFileExcel" /> Exportar Excel
+        </a>
+      </ng-container>
     </div>
   </div>
   <table class="min-w-full border-collapse table-auto">
