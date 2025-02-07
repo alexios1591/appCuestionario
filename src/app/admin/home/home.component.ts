@@ -26,7 +26,7 @@ export class HomeComponent {
   ngOnInit(): void {
     this.getUserFromLocalStorage();
     if (this.user && this.user.CodUsu) {
-      this.getClientes(this.user.CodUsu, this.currentPage);
+      this.getClientes();
     } else {
       console.error('Usuario no encontrado en localStorage o mal formado');
     }
@@ -48,35 +48,30 @@ export class HomeComponent {
     }
   }
 
-  getClientes(codUsu: number, currentPage: number): void {
-    this.clienteService.getAll(codUsu, currentPage).subscribe(
-      (data) => {
-        this.clientes = data.data.map((cliente: any) => ({
-          ...cliente,
-          DniClie: String(cliente.DniClie || ''),
-        }));
+  getClientes(): void {
+    this.clienteService
+      .getAll(this.user.CodUsu, this.currentPage, this.dniSearch.trim())
+      .subscribe(
+        (data) => {
+          this.clientes = data.data.map((cliente: any) => ({
+            ...cliente,
+            DniClie: String(cliente.DniClie || ''),
+          }));
 
-        this.currentPage = data.current_page;
-        this.lastPage = data.last_page;
+          this.currentPage = data.current_page;
+          this.lastPage = data.last_page;
 
-        this.filteredClientes = this.clientes;
-        console.log(this.clientes);
-      },
-      (error) => {
-        console.error('Error al obtener los clientes', error);
-      }
-    );
+          this.filteredClientes = this.clientes;
+          console.log(this.clientes);
+        },
+        (error) => {
+          console.error('Error al obtener los clientes', error);
+        }
+      );
   }
 
   filterClientes(): void {
-    if (this.dniSearch.trim() === '') {
-      this.filteredClientes = this.clientes;
-    } else {
-      this.filteredClientes = this.clientes.filter((cliente) => {
-        const dniClie = String(cliente.DniClie || '');
-        return dniClie.includes(this.dniSearch.trim());
-      });
-    }
+    this.getClientes();
   }
 
   faDownload = faDownload;
@@ -97,39 +92,45 @@ export class HomeComponent {
   get pages(): (number | string)[] {
     const pages: (number | string)[] = [];
 
-    const middleCount = this.maxVisiblePages - 4;
-    let left = Math.max(2, this.currentPage - Math.floor(middleCount / 2));
-    let right = Math.min(this.lastPage - 1, left + middleCount - 1);
+    if (this.lastPage > this.maxVisiblePages) {
+      const middleCount = this.maxVisiblePages - 4;
+      let left = Math.max(2, this.currentPage - Math.floor(middleCount / 2));
+      let right = Math.min(this.lastPage - 1, left + middleCount - 1);
 
-    if (this.currentPage <= Math.ceil(middleCount / 2) + 1) {
-      left = 2;
-      right = Math.min(this.lastPage - 1, middleCount + 1);
-    }
+      if (this.currentPage <= Math.ceil(middleCount / 2) + 1) {
+        left = 2;
+        right = Math.min(this.lastPage - 1, middleCount + 1);
+      }
 
-    if (this.currentPage >= this.lastPage - Math.ceil(middleCount / 2) - 1) {
-      right = this.lastPage - 1;
-      left = Math.max(2, this.lastPage - middleCount);
-    }
+      if (this.currentPage >= this.lastPage - Math.ceil(middleCount / 2) - 1) {
+        right = this.lastPage - 1;
+        left = Math.max(2, this.lastPage - middleCount);
+      }
 
-    if (left > 2) {
-      pages.push(1, '...');
-    } else {
-      pages.push(1);
-      right++;
-    }
+      if (left > 2) {
+        pages.push(1, '...');
+      } else {
+        pages.push(1);
+        right++;
+      }
 
-    if (right >= this.lastPage - 1) {
-      left--;
-    }
+      if (right >= this.lastPage - 1) {
+        left--;
+      }
 
-    for (let i = left; i <= right; i++) {
-      pages.push(i);
-    }
+      for (let i = left; i <= right; i++) {
+        pages.push(i);
+      }
 
-    if (right < this.lastPage - 1) {
-      pages.push('...', this.lastPage);
-    } else {
-      pages.push(this.lastPage);
+      if (right < this.lastPage - 1) {
+        pages.push('...', this.lastPage);
+      } else {
+        pages.push(this.lastPage);
+      }
+    }else {
+      for (let i = 1; i <= this.lastPage; i++) {
+        pages.push(i);
+      }
     }
 
     return pages;
@@ -138,6 +139,6 @@ export class HomeComponent {
   goToPage(page: number | string) {
     if (typeof page === 'string' || page < 1 || page > this.lastPage) return;
     this.currentPage = page;
-    this.getClientes(this.user.CodUsu, this.currentPage);
+    this.getClientes();
   }
 }
