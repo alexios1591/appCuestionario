@@ -1,6 +1,10 @@
 import { Component } from '@angular/core';
 import { ClienteService } from '../../api/cliente.service';
-import { faDownload } from '@fortawesome/free-solid-svg-icons';
+import {
+  faDownload,
+  faFilePdf,
+  faFileExcel,
+} from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
@@ -75,6 +79,8 @@ export class HomeComponent {
   }
 
   faDownload = faDownload;
+  faFilePdf = faFilePdf;
+  faFileExcel = faFileExcel;
 
   clienteSeleccionado: any = null;
   mostrarModal = false;
@@ -127,7 +133,7 @@ export class HomeComponent {
       } else {
         pages.push(this.lastPage);
       }
-    }else {
+    } else {
       for (let i = 1; i <= this.lastPage; i++) {
         pages.push(i);
       }
@@ -141,4 +147,5 @@ export class HomeComponent {
     this.currentPage = page;
     this.getClientes();
   }
+
 }
