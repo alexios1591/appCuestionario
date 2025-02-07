@@ -8,9 +8,10 @@ export class CuestionarioGuard implements CanActivate {
   constructor(private router: Router) {}
 
   canActivate(): boolean {
-    const user = localStorage.getItem('usuario');
-    if (!user) {
-      this.router.navigate(['/']);
+    const user = JSON.parse(localStorage.getItem('user') || 'null');
+
+    if (!user || user.rol !== 'admin') {
+      this.router.navigate(['/admin']);
       return false;
     }
     return true;
