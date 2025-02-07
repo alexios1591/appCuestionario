@@ -3,7 +3,7 @@ import { LayoutComponent } from './layout/layout.component';
 import { HomeComponent } from './home/home.component';
 import { UserComponent } from './user/user.component';
 import { AuthGuard } from '../guards/auth.guard';
-import { CuestionarioGuard } from '../guards/cuestionario.guard';
+import { AdminGuard } from '../guards/admin.guard';
 import { RolComponent } from './rol/rol.component';
 
 export const ADMIN_ROUTES: Routes = [
@@ -15,12 +15,12 @@ export const ADMIN_ROUTES: Routes = [
       {
         path: 'user',
         component: UserComponent,
-        canActivate: [AuthGuard, CuestionarioGuard],
+        canActivate: [AuthGuard, AdminGuard],
       },
       {
         path: 'rol',
         component: RolComponent,
-        canActivate: [AuthGuard, CuestionarioGuard],
+        canActivate: [AuthGuard, AdminGuard],
       },
     ],
   },
