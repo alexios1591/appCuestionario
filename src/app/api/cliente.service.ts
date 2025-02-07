@@ -11,8 +11,8 @@ export class ClienteService {
 
   private httpClient = inject(HttpClient)
 
-  getAll(id: number): Observable<any> {
-    return this.httpClient.get<any>(`${this.apiUrl}/clientes/getall/${id}`);  
+  getAll(id: number, page: number): Observable<any> {
+    return this.httpClient.get<any>(`${this.apiUrl}/clientes/getall/${id}?page=${page}`);  
   }
 
   getCustomers(): Observable<any> {
