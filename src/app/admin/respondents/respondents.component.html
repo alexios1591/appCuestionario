@@ -1,0 +1,122 @@
+<div class="border py-2 px-4 rounded-lg flex flex-col gap-4">
+  <div class="flex justify-between items-center">
+    <h2 class="text-xl">Lista de encuestados</h2>
+
+    <div class="flex gap-1">
+      <input
+        type="search"
+        class="outline-none border border-blue-300 py-2 px-4 rounded-lg"
+        placeholder="Buscar por dni"
+        [(ngModel)]="dniSearch"
+        (input)="filterClientes()"
+      />
+      <!-- <ng-container *ngIf="user.rol === 'admin'">
+        <a
+          class="text-white py-2 px-4 bg-red-500 hover:bg-red-700 transition-colors rounded-lg gap-4 inline-block text-center"
+          [href]="environment.apiUrl + '/clientes/export-pdf'"
+        >
+          <fa-icon [icon]="faFilePdf" /> Exportar PDF
+        </a>
+        <a
+          class="text-white py-2 px-4 bg-green-500 hover:bg-green-700 transition-colors rounded-lg gap-4 inline-block text-center"
+          [href]="environment.apiUrl + '/clientes/export-excel'"
+        >
+          <fa-icon [icon]="faFileExcel" /> Exportar Excel
+        </a>
+      </ng-container> -->
+
+      <!-- <a
+        *ngIf="user.rol === 'encuestador'"
+        class="text-white py-2 px-4 bg-blue-500 hover:bg-blue-700 transition-colors rounded-lg gap-4 inline-block text-center cursor-pointer"
+        routerLink="/admin/encuestas"
+      >
+        <fa-icon [icon]="faPlus" /> Registrar Encuesta
+      </a> -->
+    </div>
+  </div>
+  <table class="min-w-full border-collapse table-auto">
+    <thead>
+      <tr class="bg-gray-100 text-gray-700">
+        <th class="border-b py-3 px-4 text-left text-sm font-medium">Nombre</th>
+        <th class="border-b py-3 px-4 text-left text-sm font-medium">
+          Apellido
+        </th>
+        <th class="border-b py-3 px-4 text-left text-sm font-medium">
+          Localidad
+        </th>
+        <th class="border-b py-3 px-4 text-left text-sm font-medium">DNI</th>
+        <th class="border-b py-3 px-4 text-left text-sm font-medium">
+          Fecha nacimiento
+        </th>
+        <th class="border-b py-3 px-4 text-left text-sm font-medium">
+          Celular
+        </th>
+        <th class="border-b py-3 px-4 text-left text-sm font-medium">
+          Registro
+        </th>
+        <th class="border-b py-3 px-4 text-left text-sm font-medium">
+          Acciones
+        </th>
+      </tr>
+    </thead>
+    <tbody class="text-gray-700">
+      @for (item of clientes; track $index) {
+      <tr
+        class="odd:bg-white even:bg-gray-50 hover:bg-gray-100 transition-colors duration-200"
+      >
+        <td class="border-b py-3 px-4">{{ item.NomClie }}</td>
+        <td class="border-b py-3 px-4">{{ item.AppClie }}</td>
+        <td class="border-b py-3 px-4">{{ item.localidad }}</td>
+        <td class="border-b py-3 px-4">{{ item.DniClie }}</td>
+        <td class="border-b py-3 px-4">{{ item.FnaClie }}</td>
+        <td class="border-b py-3 px-4">{{ item.CelClie }}</td>
+        <td class="border-b py-3 px-4">{{ item.RegClie }}</td>
+
+        <td class="border-b py-3 px-4">
+          <div class="text-center">
+            <button
+              (click)="abrirModal(item)"
+              class="bg-blue-500 hover:bg-blue-600 text-white py-1 px-3 rounded-md shadow-sm transition-colors duration-200"
+            >
+              Encuestar
+            </button>
+          </div>
+        </td>
+      </tr>
+      }
+    </tbody>
+  </table>
+
+  <div class="flex justify-between align-center">
+    <span class="text-md font-sans flex aling-center">
+      Mostrando {{ (currentPage - 1) * 10 + 1 }} a
+      {{ currentPage === lastPage ? total : currentPage * 10 }} de {{ total }}
+    </span>
+
+    <div class="pagination self-end">
+      <span
+        (click)="goToPage(currentPage - 1)"
+        [class.disabled]="currentPage === 1"
+        >&laquo;</span
+      >
+
+      <span
+        *ngFor="let page of pages"
+        (click)="goToPage(page)"
+        [class.active]="page === currentPage"
+        [class.disabled]="page === '...'"
+      >
+        {{ page }}
+      </span>
+
+      <span
+        (click)="goToPage(currentPage + 1)"
+        [class.disabled]="currentPage === lastPage"
+        >&raquo;</span
+      >
+    </div>
+  </div>
+</div>
+<!-- @if (mostrarModal) {
+<app-modal [cliente]="clienteSeleccionado" (close)="cerrarModal()"></app-modal>
+} -->
