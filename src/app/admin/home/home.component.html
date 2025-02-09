@@ -13,17 +13,25 @@
       <ng-container *ngIf="user.rol === 'admin'">
         <a
           class="text-white py-2 px-4 bg-red-500 hover:bg-red-700 transition-colors rounded-lg gap-4 inline-block text-center"
-          href="http://localhost:8000/api/clientes/export-pdf"
+          [href]="environment.apiUrl + '/clientes/export-pdf'"
         >
           <fa-icon [icon]="faFilePdf" /> Exportar PDF
         </a>
         <a
           class="text-white py-2 px-4 bg-green-500 hover:bg-green-700 transition-colors rounded-lg gap-4 inline-block text-center"
-          href="http://localhost:8000/api/clientes/export-excel"
+          [href]="environment.apiUrl + '/clientes/export-excel'"
         >
           <fa-icon [icon]="faFileExcel" /> Exportar Excel
         </a>
       </ng-container>
+
+      <a
+        *ngIf="user.rol === 'encuestador'"
+        class="text-white py-2 px-4 bg-blue-500 hover:bg-blue-700 transition-colors rounded-lg gap-4 inline-block text-center cursor-pointer"
+        routerLink="/admin/encuestas"
+      >
+        <fa-icon [icon]="faPlus" /> Registrar Encuesta
+      </a>
     </div>
   </div>
   <table class="min-w-full border-collapse table-auto">
@@ -52,7 +60,7 @@
       </tr>
     </thead>
     <tbody class="text-gray-700">
-      @for (item of filteredClientes; track $index) {
+      @for (item of clientes; track $index) {
       <tr
         class="odd:bg-white even:bg-gray-50 hover:bg-gray-100 transition-colors duration-200"
       >
