@@ -72,14 +72,20 @@
         <td class="border-b py-3 px-4">{{ item.CelClie }}</td>
         <td class="border-b py-3 px-4">{{ item.RegClie }}</td>
 
-        <td class="border-b py-3 px-4">
-          <div class="text-center">
-            <button
-              class="bg-blue-500 hover:bg-blue-600 text-white py-1 px-3 rounded-md shadow-sm transition-colors duration-200"
-            >
-              Encuestar
-            </button>
-          </div>
+        <td class="border-b py-3 px-4 flex gap-1 w-[150px]">
+          <button
+            class="bg-blue-500 hover:bg-blue-600 text-white py-1 px-2 rounded-md shadow-sm transition-colors duration-200 flex items-center gap-1"
+          >
+            <fa-icon [icon]="faClipboardList"></fa-icon>
+            Encuestar
+          </button>
+
+          <button
+            class="bg-yellow-500 hover:bg-yellow-600 text-white py-1 px-2 rounded-md shadow-sm transition-colors duration-200 flex items-center gap-1"
+          >
+            <fa-icon [icon]="faEdit"></fa-icon>
+            Editar
+          </button>
         </td>
       </tr>
       }
@@ -117,5 +123,8 @@
   </div>
 </div>
 @if (mostrarModal) {
-<app-modal-client (close)="cerrarModal()" (getClientes)="getClientes()"></app-modal-client>
+<app-modal-client
+  (close)="cerrarModal()"
+  (getClientes)="getClientes()"
+></app-modal-client>
 }

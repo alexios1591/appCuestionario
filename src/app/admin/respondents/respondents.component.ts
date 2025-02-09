@@ -4,6 +4,8 @@ import {
   faFilePdf,
   faFileExcel,
   faPlus,
+  faClipboardList,
+  faEdit,
 } from '@fortawesome/free-solid-svg-icons';
 import { Component } from '@angular/core';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
@@ -14,7 +16,13 @@ import { ModalClientComponent } from '../../shared/components/modal-client/modal
 
 @Component({
   selector: 'app-respondents',
-  imports: [FontAwesomeModule, CommonModule, FormsModule, RouterModule, ModalClientComponent],
+  imports: [
+    FontAwesomeModule,
+    CommonModule,
+    FormsModule,
+    RouterModule,
+    ModalClientComponent,
+  ],
   templateUrl: './respondents.component.html',
   styleUrl: './respondents.component.css',
 })
@@ -28,6 +36,8 @@ export class RespondentsComponent {
   maxVisiblePages = 7;
 
   faPlus = faPlus;
+  faClipboardList = faClipboardList;
+  faEdit = faFilePdf;
 
   constructor(private clienteService: ClienteService) {}
 
