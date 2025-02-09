@@ -6,26 +6,25 @@ import { Observable } from 'rxjs';
   providedIn: 'root',
 })
 export class ClienteService {
-  apiUrl = 'http://127.0.0.1:8000/api';
 
   private httpClient = inject(HttpClient);
 
   getAll(id: number, page: number, dni: string): Observable<any> {
     return this.httpClient.get<any>(
-      `${this.apiUrl}/clientes/getall/${id}?page=${page}&dni=${dni}`
+      `/clientes/getall/${id}?page=${page}&dni=${dni}`
     );
   }
 
   getCustomers(): Observable<any> {
-    return this.httpClient.get<any>(`${this.apiUrl}/customers`);
+    return this.httpClient.get<any>(`/customers`);
   }
 
   insert(cliente: any): Observable<any> {
-    return this.httpClient.post<any>(`${this.apiUrl}/cliente`, cliente);
+    return this.httpClient.post<any>(`/cliente`, cliente);
   }
 
   getByDni(dni: string): Observable<any> {
-    return this.httpClient.get<any>(`${this.apiUrl}/clientes/${dni}`);
+    return this.httpClient.get<any>(`/clientes/${dni}`);
   }
 
 }

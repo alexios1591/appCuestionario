@@ -3,17 +3,13 @@ import { inject, Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class LoginService {
+  private httpClient = inject(HttpClient);
 
-  apiUrl = "http://127.0.0.1:8000/api"
-  
-    private httpClient = inject(HttpClient)
-  
-    login(NomUsu: string, PassUsu: string): Observable<any> {
-      const log = { NomUsu, PassUsu };
-      return this.httpClient.post<any>(`${this.apiUrl}/login`, log);  
-    }
-
+  login(NomUsu: string, PassUsu: string): Observable<any> {
+    const log = { NomUsu, PassUsu };
+    return this.httpClient.post<any>(`/login`, log);
+  }
 }

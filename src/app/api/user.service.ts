@@ -3,39 +3,36 @@ import { inject, Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class UserService {
+  private httpClient = inject(HttpClient);
 
-   apiUrl = "http://127.0.0.1:8000/api"
-  
-    private httpClient = inject(HttpClient)
-  
-    getAll(): Observable<any> {
-      return this.httpClient.get<any>(`${this.apiUrl}/getAll`);  
-    }
-    getAllUser(id: number): Observable<any> {
-      return this.httpClient.get<any>(`${this.apiUrl}/getAllUser/${id}`);  
-    }
-    insert(user: any): Observable<any>{
-      return this.httpClient.post<any>(`${this.apiUrl}/usuario`, user); 
-    }
-    delete(id:number): Observable<any>{
-      return this.httpClient.delete<any>(`${this.apiUrl}/usuario/${id}`); 
-    }
-    updateProfile(user: any, usuario: any): Observable<any>{
-      return this.httpClient.put<any>(`${this.apiUrl}/usuario/${usuario}`, user); 
-    }
-    getRoles(): Observable<any>{
-      return this.httpClient.get<any>(`${this.apiUrl}/roles`); 
-    }
-    createRoles(role: any, id:number): Observable<any>{
-      return this.httpClient.post<any>(`${this.apiUrl}/roles/${id}`, role); 
-    }
-    usuarioRoles(): Observable<any>{
-      return this.httpClient.get<any>(`${this.apiUrl}/usuario-roles`); 
-    }
-    deleteRoles(id: number, admiId: number): Observable<any>{
-      return this.httpClient.delete<any>(`${this.apiUrl}/roles/${id}/${admiId}`); 
-    }
+  getAll(): Observable<any> {
+    return this.httpClient.get<any>(`/getAll`);
+  }
+  getAllUser(id: number): Observable<any> {
+    return this.httpClient.get<any>(`/getAllUser/${id}`);
+  }
+  insert(user: any): Observable<any> {
+    return this.httpClient.post<any>(`/usuario`, user);
+  }
+  delete(id: number): Observable<any> {
+    return this.httpClient.delete<any>(`/usuario/${id}`);
+  }
+  updateProfile(user: any, usuario: any): Observable<any> {
+    return this.httpClient.put<any>(`/usuario/${usuario}`, user);
+  }
+  getRoles(): Observable<any> {
+    return this.httpClient.get<any>(`/roles`);
+  }
+  createRoles(role: any, id: number): Observable<any> {
+    return this.httpClient.post<any>(`/roles/${id}`, role);
+  }
+  usuarioRoles(): Observable<any> {
+    return this.httpClient.get<any>(`/usuario-roles`);
+  }
+  deleteRoles(id: number, admiId: number): Observable<any> {
+    return this.httpClient.delete<any>(`/roles/${id}/${admiId}`);
+  }
 }
