@@ -36,7 +36,8 @@ export const authInterceptor: HttpInterceptorFn = (
         localStorage.removeItem('token');
         router.navigate(['/login']);
       }
-      return throwError(() => new Error(error.message));
+
+      return throwError(() => error);
     })
   );
 };
