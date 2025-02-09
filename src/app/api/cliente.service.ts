@@ -6,7 +6,6 @@ import { Observable } from 'rxjs';
   providedIn: 'root',
 })
 export class ClienteService {
-
   private httpClient = inject(HttpClient);
 
   getAll(id: number, page: number, dni: string): Observable<any> {
@@ -27,4 +26,7 @@ export class ClienteService {
     return this.httpClient.get<any>(`/clientes/${dni}`);
   }
 
+  getUnsurveyed(ipage: number, dni: string): Observable<any> {
+    return this.httpClient.get<any>(`/clientes/unsurveyed?page=${ipage}&dni=${dni}`);
+  }
 }
