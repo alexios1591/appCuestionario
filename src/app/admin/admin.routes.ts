@@ -5,6 +5,7 @@ import { UserComponent } from './user/user.component';
 import { AuthGuard } from '../guards/auth.guard';
 import { AdminGuard } from '../guards/admin.guard';
 import { RolComponent } from './rol/rol.component';
+import { RespondentsComponent } from './respondents/respondents.component';
 
 export const ADMIN_ROUTES: Routes = [
   {
@@ -21,6 +22,11 @@ export const ADMIN_ROUTES: Routes = [
         path: 'rol',
         component: RolComponent,
         canActivate: [AuthGuard, AdminGuard],
+      },
+      {
+        path: 'encuestas',
+        component: RespondentsComponent,
+        canActivate: [AuthGuard],
       },
     ],
   },
