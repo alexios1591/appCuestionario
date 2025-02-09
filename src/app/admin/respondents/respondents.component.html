@@ -1,6 +1,6 @@
 <div class="border py-2 px-4 rounded-lg flex flex-col gap-4">
   <div class="flex justify-between items-center">
-    <h2 class="text-xl">Lista de encuestados</h2>
+    <h2 class="text-xl">Registrados por encuestars</h2>
 
     <div class="flex gap-1">
       <input
@@ -25,13 +25,13 @@
         </a>
       </ng-container> -->
 
-      <!-- <a
-        *ngIf="user.rol === 'encuestador'"
+      <a
         class="text-white py-2 px-4 bg-blue-500 hover:bg-blue-700 transition-colors rounded-lg gap-4 inline-block text-center cursor-pointer"
-        routerLink="/admin/encuestas"
+        (click)="abrirModal()"
       >
-        <fa-icon [icon]="faPlus" /> Registrar Encuesta
-      </a> -->
+        <fa-icon [icon]="faPlus" />
+        Nuevo Encuestado
+      </a>
     </div>
   </div>
   <table class="min-w-full border-collapse table-auto">
@@ -75,7 +75,6 @@
         <td class="border-b py-3 px-4">
           <div class="text-center">
             <button
-              (click)="abrirModal(item)"
               class="bg-blue-500 hover:bg-blue-600 text-white py-1 px-3 rounded-md shadow-sm transition-colors duration-200"
             >
               Encuestar
@@ -117,6 +116,6 @@
     </div>
   </div>
 </div>
-<!-- @if (mostrarModal) {
-<app-modal [cliente]="clienteSeleccionado" (close)="cerrarModal()"></app-modal>
-} -->
+@if (mostrarModal) {
+<app-modal-client (close)="cerrarModal()" (getClientes)="getClientes()"></app-modal-client>
+}

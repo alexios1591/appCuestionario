@@ -10,10 +10,11 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
+import { ModalClientComponent } from '../../shared/components/modal-client/modal-client.component';
 
 @Component({
   selector: 'app-respondents',
-  imports: [FontAwesomeModule, CommonModule, FormsModule, RouterModule],
+  imports: [FontAwesomeModule, CommonModule, FormsModule, RouterModule, ModalClientComponent],
   templateUrl: './respondents.component.html',
   styleUrl: './respondents.component.css',
 })
@@ -25,6 +26,8 @@ export class RespondentsComponent {
   lastPage = 1;
   total = 0;
   maxVisiblePages = 7;
+
+  faPlus = faPlus;
 
   constructor(private clienteService: ClienteService) {}
 
@@ -80,8 +83,7 @@ export class RespondentsComponent {
   clienteSeleccionado: any = null;
   mostrarModal = false;
 
-  abrirModal(cliente: any) {
-    this.clienteSeleccionado = cliente;
+  abrirModal() {
     this.mostrarModal = true;
   }
 
