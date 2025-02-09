@@ -23,6 +23,7 @@ export class HomeComponent {
   user: any = null;
   currentPage = 1;
   lastPage = 1;
+  total = 0;
   maxVisiblePages = 7;
 
   constructor(private clienteService: ClienteService) {}
@@ -64,6 +65,7 @@ export class HomeComponent {
 
           this.currentPage = data.current_page;
           this.lastPage = data.last_page;
+          this.total = data.total;
 
           this.filteredClientes = this.clientes;
           console.log(this.clientes);
