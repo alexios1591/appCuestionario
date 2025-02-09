@@ -1,0 +1,231 @@
+<div
+  class="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50 overflow-y-auto"
+>
+  <div
+    class="bg-white rounded-lg p-6 text-black w-11/12 md:w-2/3 max-h-[90vh] overflow-y-auto"
+  >
+    <div class="flex justify-between items-center">
+      <h2 class="text-xl font-bold">Registrar Nuevo Encuestado</h2>
+      <button
+        class="bg-red-500 text-white py-2 px-4 rounded-lg hover:bg-red-600 transition"
+        (click)="closeModal()"
+        title="Cerrar"
+      >
+        <fa-icon [icon]="faXmark" />
+      </button>
+    </div>
+    <div>
+      <form [formGroup]="registroForm" (ngSubmit)="onSubmit()">
+        <div class="flex flex-col gap-4">
+          <div class="flex gap-x-4 w-full">
+            <div class="flex flex-col gap-y-3 w-1/3">
+              <label for="NomClie">Nombre</label>
+              <input
+                type="text"
+                class="py-2 px-4 rounded-lg outline-none border border-purple-800"
+                id="NomClie"
+                formControlName="NomClie"
+              />
+              <small
+                *ngIf="
+                  registroForm.get('NomClie')?.touched &&
+                  registroForm.get('NomClie')?.invalid
+                "
+                class="text-red-600"
+              >
+                {{ getErrorMessage("NomClie") }}
+              </small>
+            </div>
+            <div class="flex flex-col gap-y-3 w-1/3">
+              <label for="AppClie">Apellido Paterno</label>
+              <input
+                type="text"
+                class="py-2 px-4 rounded-lg outline-none border border-purple-800"
+                id="AppClie"
+                formControlName="AppClie"
+              />
+              <small
+                *ngIf="
+                  registroForm.get('AppClie')?.touched &&
+                  registroForm.get('AppClie')?.invalid
+                "
+                class="text-red-600"
+              >
+                {{ getErrorMessage("AppClie") }}
+              </small>
+            </div>
+
+            <div class="flex flex-col gap-y-3 w-1/3">
+              <label for="ApmClie">Apellido Materno</label>
+              <input
+                type="text"
+                class="py-2 px-4 rounded-lg outline-none border border-purple-800"
+                id="ApmClie"
+                formControlName="ApmClie"
+              />
+              <small
+                *ngIf="
+                  registroForm.get('ApmClie')?.touched &&
+                  registroForm.get('ApmClie')?.invalid
+                "
+                class="text-red-600"
+              >
+                {{ getErrorMessage("ApmClie") }}
+              </small>
+            </div>
+          </div>
+          <div class="flex gap-x-4 w-full">
+            <div class="flex flex-col gap-y-3 w-[180px]">
+              <label for="DniClie">Dni</label>
+              <input
+                type="text"
+                class="py-2 px-4 rounded-lg outline-none border border-purple-800"
+                id="DniClie"
+                formControlName="DniClie"
+              />
+              <small
+                *ngIf="
+                  registroForm.get('DniClie')?.touched &&
+                  registroForm.get('DniClie')?.invalid
+                "
+                class="text-red-600"
+              >
+                {{ getErrorMessage("DniClie") }}
+              </small>
+            </div>
+            <div class="flex flex-col gap-y-3 w-[180px]">
+              <label for="FnaClie">Fecha de nacimiento</label>
+              <input
+                type="date"
+                class="py-2 px-4 rounded-lg outline-none border border-purple-800"
+                id="FnaClie"
+                formControlName="FnaClie"
+              />
+              <small
+                *ngIf="
+                  registroForm.get('FnaClie')?.touched &&
+                  registroForm.get('FnaClie')?.invalid
+                "
+                class="text-red-600"
+              >
+                {{ getErrorMessage("FnaClie") }}
+              </small>
+            </div>
+
+            <div class="flex flex-col gap-y-3 w-[180px]">
+              <label for="CelClie">Teléfono</label>
+              <input
+                type="text"
+                class="py-2 px-4 rounded-lg outline-none border border-purple-800"
+                id="CelClie"
+                formControlName="CelClie"
+              />
+              <small
+                *ngIf="
+                  registroForm.get('CelClie')?.touched &&
+                  registroForm.get('CelClie')?.invalid
+                "
+                class="text-red-600"
+              >
+                {{ getErrorMessage("CelClie") }}
+              </small>
+            </div>
+
+            <div class="flex flex-col gap-y-3 w-full">
+              <label for="EmaClie">Correo</label>
+              <input
+                type="text"
+                class="py-2 px-4 rounded-lg outline-none border border-purple-800"
+                id="EmaClie"
+                formControlName="EmaClie"
+              />
+              <small
+                *ngIf="
+                  registroForm.get('EmaClie')?.touched &&
+                  registroForm.get('EmaClie')?.invalid
+                "
+                class="text-red-600"
+              >
+                {{ getErrorMessage("EmaClie") }}
+              </small>
+            </div>
+          </div>
+
+          <div class="flex gap-x-4 w-full">
+            <div class="flex flex-col gap-y-3 w-1/3">
+              <label for="distrito">Departamento</label>
+              <select
+                id="departamento"
+                class="py-2 px-4 border border-purple-600 outline-none rounded-lg"
+                #departamentoSelect
+                (change)="onDepartamentoChange(departamentoSelect)"
+                title="Departamento"
+              >
+                <option value="">Seleccione un departamento</option>
+                @for (item of departamentos; track $index) {
+                <option [value]="item.idDepartamento">
+                  {{ item.departamento }}
+                </option>
+                }
+              </select>
+            </div>
+
+            <div class="flex flex-col gap-y-3 w-1/3">
+              <label for="distrito">Provincia</label>
+              <select
+                id="provincia"
+                class="py-2 px-4 border border-purple-600 outline-none rounded-lg"
+                #provinciaSelect
+                (change)="onProvinciaChange(provinciaSelect)"
+                title="Provincia"
+                [disabled]="provincias.length === 0"
+              >
+                <option value="">Seleccione una provincia</option>
+                @for (item of provincias; track $index) {
+                <option [value]="item.idProvincia">
+                  {{ item.provincia }}
+                </option>
+                }
+              </select>
+            </div>
+
+            <div class="flex flex-col gap-y-3 w-1/3">
+              <label for="distrito">Distrito</label>
+              <select
+                id="distrito"
+                formControlName="localidad"
+                class="py-2 px-4 border border-purple-600 outline-none rounded-lg"
+              >
+                <option value="">Seleccione un distrito</option>
+                @for (item of distritos; track $index) {
+                <option [value]="item.distrito">
+                  {{ item.distrito }}
+                </option>
+                }
+              </select>
+              <small
+                *ngIf="
+                  registroForm.get('localidad')?.touched &&
+                  registroForm.get('localidad')?.invalid
+                "
+                class="text-red-600"
+              >
+                {{ getErrorMessage("localidad") }}
+              </small>
+            </div>
+          </div>
+
+          <div class="flex justify-end">
+            <button
+              type="submit"
+              class="py-2 px-4 bg-blue-600 hover:bg-blue-700 text-white rounded-lg transition-colors"
+            >
+            <fa-icon [icon]="faSave" />
+              Guardar
+            </button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
