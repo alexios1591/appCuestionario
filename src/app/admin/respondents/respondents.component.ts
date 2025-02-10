@@ -95,7 +95,8 @@ export class RespondentsComponent {
   clienteSeleccionado: any = null;
   mostrarModal = false;
 
-  abrirModal() {
+  abrirModal(cliente: any = null) {
+    this.clienteSeleccionado = cliente;
     this.mostrarModal = true;
   }
 
