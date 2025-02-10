@@ -1,0 +1,49 @@
+<div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4 p-4">
+  <div
+    class="bg-white shadow-lg rounded-2xl p-6 flex items-center space-x-4 border border-gray-200"
+  >
+    <fa-icon [icon]="faUsers" class="text-blue-500 text-6xl"></fa-icon>
+    <div>
+      <h3 class="text-gray-600 text-2xl font-semibold">Registrados</h3>
+      <p class="text-3xl font-bold text-gray-900">
+        {{ dashboardStats?.totalRegisteredRespondents }}
+      </p>
+    </div>
+  </div>
+  <div
+    class="bg-white shadow-lg rounded-2xl p-6 flex items-center space-x-4 border border-gray-200"
+  >
+    <fa-icon [icon]="faUserCheck" class="text-green-500 text-6xl"></fa-icon>
+    <div>
+      <h3 class="text-gray-600 text-2xl font-semibold">Encuestados</h3>
+      <p class="text-3xl font-bold text-gray-900">
+        {{ dashboardStats?.totalRespondents }}
+      </p>
+    </div>
+  </div>
+  <div
+    class="bg-white shadow-lg rounded-2xl p-6 flex items-center space-x-4 border border-gray-200"
+  >
+    <fa-icon [icon]="faClipboardList" class="text-red-500 text-6xl"></fa-icon>
+    <div>
+      <h3 class="text-gray-600 text-2xl font-semibold">Pendientes</h3>
+      <p class="text-3xl font-bold text-gray-900">
+        {{ dashboardStats?.totalUnsurveyed }}
+      </p>
+    </div>
+  </div>
+  <div
+    class="bg-white shadow-lg rounded-2xl p-6 flex items-center space-x-4 border border-gray-200"
+  >
+    <fa-icon
+      [icon]="faClipboardList"
+      class="text-yellow-500 text-6xl"
+    ></fa-icon>
+    <div>
+      <h3 class="text-gray-600 text-2xl font-semibold">Encuestas Hoy</h3>
+      <p class="text-3xl font-bold text-gray-900">
+        {{ dashboardStats?.totalSurveysToday }}
+      </p>
+    </div>
+  </div>
+</div>
