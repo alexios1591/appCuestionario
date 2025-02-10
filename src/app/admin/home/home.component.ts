@@ -6,6 +6,7 @@ import {
   faFileExcel,
   faPlus,
   faFileAlt,
+  faEdit
 } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { CommonModule } from '@angular/common';
@@ -13,6 +14,7 @@ import { FormsModule } from '@angular/forms';
 import { ModalComponent } from '../../shared/components/modal/modal.component';
 import { RouterModule } from '@angular/router';
 import { environment } from '../../../environments/environment';
+import { ModalClientComponent } from '../../shared/components/modal-client/modal-client.component';
 
 @Component({
   selector: 'app-home',
@@ -22,6 +24,7 @@ import { environment } from '../../../environments/environment';
     CommonModule,
     FormsModule,
     RouterModule,
+    ModalClientComponent,
   ],
   templateUrl: './home.component.html',
   styleUrl: './home.component.css',
@@ -42,6 +45,7 @@ export class HomeComponent {
   faFileExcel = faFileExcel;
   faPlus = faPlus;
   faFileAlt = faFileAlt;
+  faEdit = faEdit;
 
   clienteSeleccionado: any = null;
   mostrarModal = false;
@@ -104,6 +108,18 @@ export class HomeComponent {
 
   cerrarModal() {
     this.mostrarModal = false;
+    this.clienteSeleccionado = null;
+  }
+
+  showModalQuestionnaire = false;
+
+  openModalQuestionnaire(cliente: any) {
+    this.clienteSeleccionado = cliente;
+    this.showModalQuestionnaire = true;
+  }
+
+  closeModalQuestionnaire() {
+    this.showModalQuestionnaire = false;
     this.clienteSeleccionado = null;
   }
 

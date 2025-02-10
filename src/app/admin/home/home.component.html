@@ -81,12 +81,20 @@
         <td class="border-b py-3 px-4">{{ item.RegClie }}</td>
 
         <td class="border-b py-3 px-4">
-          <div class="text-center">
+          <div class="flex gap-1">
             <button
               (click)="abrirModal(item)"
               class="bg-blue-500 hover:bg-blue-600 text-white py-1 px-3 rounded-md shadow-sm transition-colors duration-200"
             >
-              <fa-icon [icon]="faFileAlt"></fa-icon> Ver Reporte
+              <fa-icon [icon]="faFileAlt"></fa-icon>Reporte
+            </button>
+
+            <button
+              class="bg-yellow-500 hover:bg-yellow-600 text-white py-1 px-2 rounded-md shadow-sm transition-colors duration-200 flex items-center gap-1"
+              (click)="openModalQuestionnaire(item)"
+            >
+              <fa-icon [icon]="faEdit"></fa-icon>
+              Editar
             </button>
           </div>
         </td>
@@ -127,4 +135,10 @@
 </div>
 @if (mostrarModal) {
 <app-modal [cliente]="clienteSeleccionado" (close)="cerrarModal()"></app-modal>
+} @if (showModalQuestionnaire) {
+<app-modal-client
+  (close)="closeModalQuestionnaire()"
+  (getClientes)="getClientes()"
+  [cliente]="clienteSeleccionado"
+></app-modal-client>
 }
