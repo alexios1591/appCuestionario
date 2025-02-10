@@ -1,4 +1,11 @@
-import { Component, EventEmitter, Output, OnInit, inject } from '@angular/core';
+import {
+  Component,
+  EventEmitter,
+  Output,
+  OnInit,
+  inject,
+  Input,
+} from '@angular/core';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { faSave, faXmark } from '@fortawesome/free-solid-svg-icons';
 import {
@@ -24,6 +31,7 @@ export class ModalClientComponent implements OnInit {
 
   @Output() close = new EventEmitter<void>();
   @Output() getClientes = new EventEmitter<void>();
+  @Input() cliente: any;
 
   departamentos: any[] = [];
   provincias: any[] = [];
@@ -47,30 +55,65 @@ export class ModalClientComponent implements OnInit {
         console.error('Error al cargar departamentos', error);
       }
     );
+
+    if (this.cliente) {
+      this.onDepartamentoChange(this.cliente.idDepartamento);
+      this.onProvinciaChange(this.cliente.idProvincia, true);
+    }
   }
 
   initForm() {
     this.registroForm = this.fb.group({
-      NomClie: ['', [Validators.required, Validators.minLength(2)]],
-      AppClie: ['', [Validators.required]],
-      ApmClie: ['', [Validators.required]],
-      EmaClie: ['', [Validators.required, Validators.email]],
-      CelClie: ['', [Validators.required, Validators.pattern(/^\d{9}$/)]],
-      DniClie: ['', [Validators.required, Validators.pattern(/^\d{8}$/)]],
-      FnaClie: ['', [Validators.required]],
-      localidad: [{ value: '', disabled: true }, [Validators.required]],
+      NomClie: [
+        this.cliente ? this.cliente.NomClie : '',
+        [Validators.required, Validators.minLength(2)],
+      ],
+      AppClie: [
+        this.cliente ? this.cliente.AppClie : '',
+        [Validators.required],
+      ],
+      ApmClie: [
+        this.cliente ? this.cliente.ApmClie : '',
+        [Validators.required],
+      ],
+      EmaClie: [
+        this.cliente ? this.cliente.EmaClie : '',
+        [Validators.required, Validators.email],
+      ],
+      CelClie: [
+        this.cliente ? this.cliente.CelClie : '',
+        [Validators.required, Validators.pattern(/^\d{9}$/)],
+      ],
+      DniClie: [
+        this.cliente ? this.cliente.DniClie : '',
+        [Validators.required, Validators.pattern(/^\d{8}$/)],
+      ],
+      FnaClie: [
+        this.cliente ? this.cliente.FnaClie : '',
+        [Validators.required],
+      ],
+      localidad: [
+        {
+          value: this.cliente ? this.cliente.localidad : '',
+          disabled: !this.cliente,
+        },
+        [Validators.required],
+      ],
     });
   }
 
-  onDepartamentoChange(selectElement: HTMLSelectElement) {
+  onDepartamentoChange(departamento: HTMLSelectElement | number) {
     this.registroForm.get('localidad')?.disable();
     this.registroForm.get('localidad')?.setValue('');
 
-    const departamentoId = selectElement.value;
-    this.selectedDepartamento = Number(departamentoId);
+    const departamentoId =
+      typeof departamento === 'number'
+        ? departamento
+        : Number(departamento.value);
+    this.selectedDepartamento = departamentoId;
     this.provincias = [];
     this.distritos = [];
-    this.localidadService.getProvincia(Number(departamentoId)).subscribe(
+    this.localidadService.getProvincia(departamentoId).subscribe(
       (data) => {
         this.provincias = data.provincias;
       },
@@ -80,17 +123,45 @@ export class ModalClientComponent implements OnInit {
     );
   }
 
-  onProvinciaChange(selectElement: HTMLSelectElement) {
+  onProvinciaChange(provincia: HTMLSelectElement | number, init = false) {
     this.registroForm.get('localidad')?.disable();
     this.registroForm.get('localidad')?.setValue('');
 
-    const provinciaId = selectElement.value;
-    this.selectedProvincia = Number(provinciaId);
+    const provinciaId =
+      typeof provincia === 'number' ? provincia : Number(provincia.value);
+    this.selectedProvincia = provinciaId;
     this.distritos = [];
-    this.localidadService.getDistrito(Number(provinciaId)).subscribe(
+    this.localidadService.getDistrito(provinciaId).subscribe(
       (data) => {
         this.distritos = data.distritos;
         this.registroForm.get('localidad')?.enable();
+        if (this.cliente && init) {
+          setTimeout(() => {
+            const departamentoSelect = document.getElementById(
+              'departamento'
+            ) as HTMLSelectElement;
+            if (departamentoSelect) {
+              departamentoSelect.value = this.selectedDepartamento + '';
+            }
+
+            const provinciaSelect = document.getElementById(
+              'provincia'
+            ) as HTMLSelectElement;
+            if (provinciaSelect) {
+              provinciaSelect.value = this.selectedProvincia + '';
+            }
+
+            const distritoSelect = document.getElementById(
+              'distrito'
+            ) as HTMLSelectElement;
+            if (distritoSelect) {
+              distritoSelect.value = this.cliente.localidad;
+              this.registroForm
+                .get('localidad')
+                ?.setValue(this.cliente.localidad);
+            }
+          });
+        }
       },
       (error) => {
         console.error('Error al cargar distritos', error);
@@ -100,51 +171,101 @@ export class ModalClientComponent implements OnInit {
 
   onSubmit() {
     if (this.registroForm.valid) {
-      this.clienteService.insert(this.registroForm.value).subscribe({
-        next: (data) => {
-          console.log(data);
-          localStorage.setItem('cliente', JSON.stringify(data.cliente));
+      if (!this.cliente) {
+        this.clienteService.insert(this.registroForm.value).subscribe({
+          next: (data) => {
+            console.log(data);
+            localStorage.setItem('cliente', JSON.stringify(data.cliente));
 
-          Swal.fire({
-            position: 'top-end',
-            text: 'Cliente registrado correctamente.',
-            icon: 'success',
-            showConfirmButton: false,
-            timer: 3000,
-          });
-
-          this.closeModal();
-          this.getClientes.emit();
-        },
-        error: (error) => {
-          const mensajeError = error.error?.message;
-
-          if (error.error?.errors) {
-            Object.keys(error.error.errors).forEach((field) => {
-              const formControl = this.registroForm.get(field);
-              if (formControl) {
-                formControl.setErrors({
-                  serverError: error.error.errors[field].join(' '),
-                });
-                formControl.markAsTouched();
-              }
+            Swal.fire({
+              position: 'top-end',
+              text: 'Cliente registrado correctamente.',
+              icon: 'success',
+              showConfirmButton: false,
+              timer: 3000,
             });
-          }
 
-          Swal.fire({
-            position: 'top-end',
-            text: mensajeError,
-            icon: 'error',
-            showConfirmButton: false,
-            timer: 3000,
+            this.closeModal();
+            this.getClientes.emit();
+          },
+          error: (error) => {
+            const mensajeError = error.error?.message;
+
+            if (error.error?.errors) {
+              Object.keys(error.error.errors).forEach((field) => {
+                const formControl = this.registroForm.get(field);
+                if (formControl) {
+                  formControl.setErrors({
+                    serverError: error.error.errors[field].join(' '),
+                  });
+                  formControl.markAsTouched();
+                }
+              });
+            }
+
+            Swal.fire({
+              position: 'top-end',
+              text: mensajeError,
+              icon: 'error',
+              showConfirmButton: false,
+              timer: 3000,
+            });
+
+            console.error('Error al registrar cliente:', error);
+          },
+          complete: () => {
+            console.log('La operación se completó');
+          },
+        });
+      } else {
+        this.clienteService
+          .update({ ...this.registroForm.value, CodClie: this.cliente.CodClie })
+          .subscribe({
+            next: (data) => {
+              console.log(data);
+              localStorage.setItem('cliente', JSON.stringify(data.cliente));
+
+              Swal.fire({
+                position: 'top-end',
+                text: 'Cliente actualizado correctamente.',
+                icon: 'success',
+                showConfirmButton: false,
+                timer: 3000,
+              });
+
+              this.closeModal();
+              this.getClientes.emit();
+            },
+            error: (error) => {
+              const mensajeError = error.error?.message;
+
+              if (error.error?.errors) {
+                Object.keys(error.error.errors).forEach((field) => {
+                  const formControl = this.registroForm.get(field);
+                  if (formControl) {
+                    formControl.setErrors({
+                      serverError: error.error.errors[field].join(' '),
+                    });
+                    formControl.markAsTouched();
+                  }
+                });
+              }
+
+              Swal.fire({
+                position: 'top-end',
+                text: mensajeError,
+                icon: 'error',
+                showConfirmButton: false,
+                timer: 3000,
+              });
+
+              console.error('Error al actualizar cliente:', error);
+            },
+            complete: () => {
+              console.log('La operación se completó');
+            },
           });
-
-          console.error('Error al registrar cliente:', error);
-        },
-        complete: () => {
-          console.log('La operación se completó');
-        },
-      });
+      }
     } else {
       console.error('Formulario inválido');
       console.log();
@@ -156,7 +277,6 @@ export class ModalClientComponent implements OnInit {
         showConfirmButton: false,
         timer: 1000,
       });
-
     }
   }
   private markFormGroupTouched(formGroup: FormGroup) {
