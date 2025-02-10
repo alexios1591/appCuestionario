@@ -171,6 +171,15 @@ export class ModalClientComponent implements OnInit {
 
   onSubmit() {
     if (this.registroForm.valid) {
+      Swal.fire({
+        title: 'Guardando...',
+        text: 'Por favor, espere.',
+        allowOutsideClick: false,
+        didOpen: () => {
+          Swal.showLoading();
+        },
+      });
+
       if (!this.cliente) {
         this.clienteService.insert(this.registroForm.value).subscribe({
           next: (data) => {
@@ -182,7 +191,7 @@ export class ModalClientComponent implements OnInit {
               text: 'Cliente registrado correctamente.',
               icon: 'success',
               showConfirmButton: false,
-              timer: 3000,
+              timer: 1000,
             });
 
             this.closeModal();
@@ -208,7 +217,7 @@ export class ModalClientComponent implements OnInit {
               text: mensajeError,
               icon: 'error',
               showConfirmButton: false,
-              timer: 3000,
+              timer: 1000,
             });
 
             console.error('Error al registrar cliente:', error);
@@ -230,7 +239,7 @@ export class ModalClientComponent implements OnInit {
                 text: 'Cliente actualizado correctamente.',
                 icon: 'success',
                 showConfirmButton: false,
-                timer: 3000,
+                timer: 1000,
               });
 
               this.closeModal();
@@ -256,7 +265,7 @@ export class ModalClientComponent implements OnInit {
                 text: mensajeError,
                 icon: 'error',
                 showConfirmButton: false,
-                timer: 3000,
+                timer: 1000,
               });
 
               console.error('Error al actualizar cliente:', error);

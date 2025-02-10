@@ -5,7 +5,9 @@
     class="bg-white rounded-lg p-6 text-black w-11/12 md:w-2/3 max-h-[90vh] overflow-y-auto"
   >
     <div class="flex justify-between items-center">
-      <h2 class="text-xl font-bold">Registrar Nuevo Encuestado</h2>
+      <h2 class="text-xl font-bold">
+        {{ cliente ? "Editar Encuestado" : "Registrar Nuevo Encuestado" }}
+      </h2>
       <button
         class="bg-red-500 text-white py-2 px-4 rounded-lg hover:bg-red-600 transition"
         (click)="closeModal()"
@@ -220,7 +222,7 @@
               type="submit"
               class="py-2 px-4 bg-blue-600 hover:bg-blue-700 text-white rounded-lg transition-colors"
             >
-            <fa-icon [icon]="faSave" />
+              <fa-icon [icon]="faSave" />
               Guardar
             </button>
           </div>
