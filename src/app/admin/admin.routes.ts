@@ -6,6 +6,7 @@ import { AuthGuard } from '../guards/auth.guard';
 import { AdminGuard } from '../guards/admin.guard';
 import { RolComponent } from './rol/rol.component';
 import { RespondentsComponent } from './respondents/respondents.component';
+import { DashboardComponent } from './dashboard/dashboard.component';
 
 export const ADMIN_ROUTES: Routes = [
   {
@@ -13,6 +14,11 @@ export const ADMIN_ROUTES: Routes = [
     component: LayoutComponent,
     children: [
       { path: '', component: HomeComponent, canActivate: [AuthGuard] },
+      {
+        path: 'dashboard',
+        component: DashboardComponent,
+        canActivate: [AuthGuard],
+      },
       {
         path: 'user',
         component: UserComponent,
