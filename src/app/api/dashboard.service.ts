@@ -11,4 +11,13 @@ export class DashboardService {
   getDashboardStats(): Observable<any> {
     return this.httpClient.get<any>(`/dashboard`);
   }
+
+  getSurveysByPeriod( period: string): Observable<any> {
+    return this.httpClient.get<any>(`/dashboard/surveys-by-period?period=${period}`);
+  }
+
+  getSurveysByUser(): Observable<any> {
+    return this.httpClient.get<any>(`/dashboard/surveys-by-user`);
+  }
+
 }
