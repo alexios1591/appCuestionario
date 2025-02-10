@@ -1,0 +1,891 @@
+<div
+  class="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50 overflow-y-auto"
+>
+  <div
+    class="bg-white rounded-lg p-6 text-black w-[90vw] max-h-[95vh] overflow-y-auto bg-fondo"
+  >
+    <div class="flex justify-between items-center">
+      <h2 class="text-xl font-bold text-white">Cuestionario</h2>
+      <button
+        class="bg-red-500 text-white py-2 px-4 rounded-lg hover:bg-red-600 transition"
+        (click)="closeModal()"
+        title="Cerrar"
+      >
+        <fa-icon [icon]="faXmark" />
+      </button>
+    </div>
+    <div>
+      <div class="p-4 flex items-center flex-col font-sans">
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-x-4">
+          <div
+            class="bg-white col-span-1 md:col-span-2 rounded-xl p-4 flex text-justify flex-col gap-y-4 mb-4"
+          >
+            <h2 class="text-center text-gray-800 font-sans text-2xl">
+              Cuestionario sobre Salud Personal-9 (PHQ-9)
+            </h2>
+            <p>
+              Durante las últimas 2 semanas, ¿qué tan seguido has tenido
+              molestias debido a los problemas que se mencionan en cada
+              pregunta?
+            </p>
+            <ul class="list-disc pl-5 space-y-2">
+              <li>Ningún día es 0</li>
+              <li>Varios días es 1</li>
+              <li>Más de la mitad de los días es 2</li>
+              <li>Casi todos los días es 3</li>
+            </ul>
+          </div>
+          <div
+            class="bg-white rounded-xl p-4 flex text-justify text-black flex-col gap-y-4 mb-4"
+          >
+            <span class="text-center text-xl font-bold">Encuestada</span>
+            <ul class="flex gap-y-4 flex-col font-sans">
+              <li class="capitalize text-lg font-bold text-gray-800">
+                {{ cliente.NomClie }}
+                {{ cliente.AppClie }}
+                {{ cliente.ApmClie }}
+              </li>
+              <li>Telefono: {{ cliente.CelClie }}</li>
+              <li>Dni: {{ cliente.DniClie }}</li>
+              <li>Localidad: {{ cliente.localidad }}</li>
+            </ul>
+          </div>
+        </div>
+        <form [formGroup]="form" (ngSubmit)="onSubmit()" class="rounded-xl">
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div
+              class="flex bg-white flex-col gap-y-4 mb-4 p-2 md:p-4 rounded-lg"
+            >
+              <span class="text-lg mb-2"
+                >1. ¿Qué tan seguido has tenido poco interés o placer en hacer
+                cosas?</span
+              >
+              <div class="options flex justify-center gap-4">
+                <label class="flex items-center cursor-pointer">
+                  <input
+                    type="radio"
+                    formControlName="Pre1"
+                    [value]="0"
+                    class="peer hidden"
+                  />
+                  <span
+                    class="w-8 h-8 rounded-full bg-green-600 text-white border border-gray-400 flex items-center justify-center peer-checked:bg-blue-500 peer-checked:border-blue-500 transition-all"
+                  >
+                    0</span
+                  >
+                </label>
+                <label class="flex items-center cursor-pointer">
+                  <input
+                    type="radio"
+                    formControlName="Pre1"
+                    [value]="1"
+                    class="peer hidden"
+                  />
+                  <span
+                    class="w-8 h-8 rounded-full bg-yellow-600 text-white border border-gray-400 flex items-center justify-center peer-checked:bg-blue-500 peer-checked:border-blue-500 transition-all"
+                  >
+                    1
+                  </span>
+                </label>
+                <label class="flex items-center cursor-pointer">
+                  <input
+                    type="radio"
+                    formControlName="Pre1"
+                    [value]="2"
+                    class="peer hidden"
+                  />
+                  <span
+                    class="w-8 h-8 rounded-full bg-orange-600 text-white border border-gray-400 flex items-center justify-center peer-checked:bg-blue-500 peer-checked:border-blue-500 transition-all"
+                  >
+                    2
+                  </span>
+                </label>
+                <label class="flex items-center cursor-pointer">
+                  <input
+                    type="radio"
+                    formControlName="Pre1"
+                    [value]="3"
+                    class="peer hidden"
+                  />
+                  <span
+                    class="w-8 h-8 rounded-full bg-red-600 text-white border border-gray-400 flex items-center justify-center peer-checked:bg-blue-500 peer-checked:border-blue-500 transition-all"
+                  >
+                    3
+                  </span>
+                </label>
+              </div>
+            </div>
+            <div
+              class="flex flex-col bg-white gap-y-4 mb-4 p-2 md:p-4 rounded-lg"
+            >
+              <span class="text-lg mb-2"
+                >2. ¿Te has sentido decaída, deprimida o sin esperanzas?</span
+              >
+              <div class="options flex justify-center gap-4">
+                <label class="flex items-center cursor-pointer">
+                  <input
+                    type="radio"
+                    formControlName="Pre2"
+                    [value]="0"
+                    class="peer hidden"
+                  />
+                  <span
+                    class="w-8 h-8 rounded-full bg-green-600 text-white border border-gray-400 flex items-center justify-center peer-checked:bg-blue-500 peer-checked:border-blue-500 transition-all"
+                  >
+                    0
+                  </span>
+                </label>
+                <label class="flex items-center cursor-pointer">
+                  <input
+                    type="radio"
+                    formControlName="Pre2"
+                    [value]="1"
+                    class="peer hidden"
+                  />
+                  <span
+                    class="w-8 h-8 rounded-full bg-yellow-600 text-white border border-gray-400 flex items-center justify-center peer-checked:bg-blue-500 peer-checked:border-blue-500 transition-all"
+                  >
+                    1
+                  </span>
+                </label>
+                <label class="flex items-center cursor-pointer">
+                  <input
+                    type="radio"
+                    formControlName="Pre2"
+                    [value]="2"
+                    class="peer hidden"
+                  />
+                  <span
+                    class="w-8 h-8 rounded-full bg-orange-600 text-white border border-gray-400 flex items-center justify-center peer-checked:bg-blue-500 peer-checked:border-blue-500 transition-all"
+                  >
+                    2
+                  </span>
+                </label>
+                <label class="flex items-center cursor-pointer">
+                  <input
+                    type="radio"
+                    formControlName="Pre2"
+                    [value]="3"
+                    class="peer hidden"
+                  />
+                  <span
+                    class="w-8 h-8 rounded-full bg-red-600 text-white border border-gray-400 flex items-center justify-center peer-checked:bg-blue-500 peer-checked:border-blue-500 transition-all"
+                  >
+                    3
+                  </span>
+                </label>
+              </div>
+            </div>
+          </div>
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div
+              class="flex flex-col bg-white gap-y-4 mb-4 p-2 md:p-4 rounded-lg"
+            >
+              <span class="text-lg mb-2"
+                >3. ¿Has tenido dificultades para dormir?</span
+              >
+              <div class="options flex justify-center gap-4">
+                <label class="flex items-center cursor-pointer">
+                  <input
+                    type="radio"
+                    formControlName="Pre3"
+                    [value]="0"
+                    class="peer hidden"
+                  />
+                  <span
+                    class="w-8 h-8 rounded-full bg-green-600 text-white border border-gray-400 flex items-center justify-center peer-checked:bg-blue-500 peer-checked:border-blue-500 transition-all"
+                  >
+                    0
+                  </span>
+                </label>
+                <label class="flex items-center cursor-pointer">
+                  <input
+                    type="radio"
+                    formControlName="Pre3"
+                    [value]="1"
+                    class="peer hidden"
+                  />
+                  <span
+                    class="w-8 h-8 rounded-full bg-yellow-600 text-white border border-gray-400 flex items-center justify-center peer-checked:bg-blue-500 peer-checked:border-blue-500 transition-all"
+                  >
+                    1
+                  </span>
+                </label>
+                <label class="flex items-center cursor-pointer">
+                  <input
+                    type="radio"
+                    formControlName="Pre3"
+                    [value]="2"
+                    class="peer hidden"
+                  />
+                  <span
+                    class="w-8 h-8 rounded-full bg-orange-600 text-white border border-gray-400 flex items-center justify-center peer-checked:bg-blue-500 peer-checked:border-blue-500 transition-all"
+                  >
+                    2
+                  </span>
+                </label>
+                <label class="flex items-center cursor-pointer">
+                  <input
+                    type="radio"
+                    formControlName="Pre3"
+                    [value]="3"
+                    class="peer hidden"
+                  />
+                  <span
+                    class="w-8 h-8 rounded-full bg-red-600 text-white border border-gray-400 flex items-center justify-center peer-checked:bg-blue-500 peer-checked:border-blue-500 transition-all"
+                  >
+                    3
+                  </span>
+                </label>
+              </div>
+            </div>
+            <div
+              class="flex flex-col bg-white gap-y-4 mb-4 p-2 md:p-4 rounded-lg"
+            >
+              <span class="text-lg mb-2"
+                >4. ¿Te has sentido cansada o con poca energía?</span
+              >
+              <div class="options flex justify-center gap-4">
+                <label class="flex items-center cursor-pointer">
+                  <input
+                    type="radio"
+                    formControlName="Pre4"
+                    [value]="0"
+                    class="peer hidden"
+                  />
+                  <span
+                    class="w-8 h-8 rounded-full bg-green-600 text-white border border-gray-400 flex items-center justify-center peer-checked:bg-blue-500 peer-checked:border-blue-500 transition-all"
+                  >
+                    0
+                  </span>
+                </label>
+                <label class="flex items-center cursor-pointer">
+                  <input
+                    type="radio"
+                    formControlName="Pre4"
+                    [value]="1"
+                    class="peer hidden"
+                  />
+                  <span
+                    class="w-8 h-8 rounded-full bg-yellow-600 text-white border border-gray-400 flex items-center justify-center peer-checked:bg-blue-500 peer-checked:border-blue-500 transition-all"
+                  >
+                    1
+                  </span>
+                </label>
+                <label class="flex items-center cursor-pointer">
+                  <input
+                    type="radio"
+                    formControlName="Pre4"
+                    [value]="2"
+                    class="peer hidden"
+                  />
+                  <span
+                    class="w-8 h-8 rounded-full bg-orange-600 text-white border border-gray-400 flex items-center justify-center peer-checked:bg-blue-500 peer-checked:border-blue-500 transition-all"
+                  >
+                    2
+                  </span>
+                </label>
+                <label class="flex items-center cursor-pointer">
+                  <input
+                    type="radio"
+                    formControlName="Pre4"
+                    [value]="3"
+                    class="peer hidden"
+                  />
+                  <span
+                    class="w-8 h-8 rounded-full bg-red-600 text-white border border-gray-400 flex items-center justify-center peer-checked:bg-blue-500 peer-checked:border-blue-500 transition-all"
+                  >
+                    3
+                  </span>
+                </label>
+              </div>
+            </div>
+          </div>
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div
+              class="flex flex-col bg-white gap-y-4 mb-4 p-2 md:p-4 rounded-lg"
+            >
+              <span class="text-lg mb-2"
+                >5. ¿Has estado sin ganas de comer o has comido en exceso?</span
+              >
+              <div class="options flex justify-center gap-4">
+                <label class="flex items-center cursor-pointer">
+                  <input
+                    type="radio"
+                    formControlName="Pre5"
+                    [value]="0"
+                    class="peer hidden"
+                  />
+                  <span
+                    class="w-8 h-8 rounded-full bg-green-600 text-white border border-gray-400 flex items-center justify-center peer-checked:bg-blue-500 peer-checked:border-blue-500 transition-all"
+                  >
+                    0
+                  </span>
+                </label>
+                <label class="flex items-center cursor-pointer">
+                  <input
+                    type="radio"
+                    formControlName="Pre5"
+                    [value]="1"
+                    class="peer hidden"
+                  />
+                  <span
+                    class="w-8 h-8 rounded-full bg-yellow-600 text-white border border-gray-400 flex items-center justify-center peer-checked:bg-blue-500 peer-checked:border-blue-500 transition-all"
+                  >
+                    1
+                  </span>
+                </label>
+                <label class="flex items-center cursor-pointer">
+                  <input
+                    type="radio"
+                    formControlName="Pre5"
+                    [value]="2"
+                    class="peer hidden"
+                  />
+                  <span
+                    class="w-8 h-8 rounded-full bg-orange-600 text-white border border-gray-400 flex items-center justify-center peer-checked:bg-blue-500 peer-checked:border-blue-500 transition-all"
+                  >
+                    2
+                  </span>
+                </label>
+                <label class="flex items-center cursor-pointer">
+                  <input
+                    type="radio"
+                    formControlName="Pre5"
+                    [value]="3"
+                    class="peer hidden"
+                  />
+                  <span
+                    class="w-8 h-8 rounded-full bg-red-600 text-white border border-gray-400 flex items-center justify-center peer-checked:bg-blue-500 peer-checked:border-blue-500 transition-all"
+                  >
+                    3
+                  </span>
+                </label>
+              </div>
+            </div>
+            <div
+              class="flex flex-col bg-white gap-y-4 mb-4 p-2 md:p-4 rounded-lg"
+            >
+              <span class="text-lg mb-2"
+                >6. ¿Te has sentido mal contigo misma?</span
+              >
+              <div class="options flex justify-center gap-4">
+                <label class="flex items-center cursor-pointer">
+                  <input
+                    type="radio"
+                    formControlName="Pre6"
+                    [value]="0"
+                    class="peer hidden"
+                  />
+                  <span
+                    class="w-8 h-8 rounded-full bg-green-600 text-white border border-gray-400 flex items-center justify-center peer-checked:bg-blue-500 peer-checked:border-blue-500 transition-all"
+                  >
+                    0
+                  </span>
+                </label>
+                <label class="flex items-center cursor-pointer">
+                  <input
+                    type="radio"
+                    formControlName="Pre6"
+                    [value]="1"
+                    class="peer hidden"
+                  />
+                  <span
+                    class="w-8 h-8 rounded-full bg-yellow-600 text-white border border-gray-400 flex items-center justify-center peer-checked:bg-blue-500 peer-checked:border-blue-500 transition-all"
+                  >
+                    1
+                  </span>
+                </label>
+                <label class="flex items-center cursor-pointer">
+                  <input
+                    type="radio"
+                    formControlName="Pre6"
+                    [value]="2"
+                    class="peer hidden"
+                  />
+                  <span
+                    class="w-8 h-8 rounded-full bg-orange-600 text-white border border-gray-400 flex items-center justify-center peer-checked:bg-blue-500 peer-checked:border-blue-500 transition-all"
+                  >
+                    2
+                  </span>
+                </label>
+                <label class="flex items-center cursor-pointer">
+                  <input
+                    type="radio"
+                    formControlName="Pre6"
+                    [value]="3"
+                    class="peer hidden"
+                  />
+                  <span
+                    class="w-8 h-8 rounded-full bg-red-600 text-white border border-gray-400 flex items-center justify-center peer-checked:bg-blue-500 peer-checked:border-blue-500 transition-all"
+                  >
+                    3
+                  </span>
+                </label>
+              </div>
+            </div>
+          </div>
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div
+              class="flex flex-col bg-white gap-y-4 mb-4 p-2 md:p-4 rounded-lg"
+            >
+              <span class="text-lg mb-2"
+                >7. ¿Has tenido dificultades para concentrarte?</span
+              >
+              <div class="options flex justify-center gap-4">
+                <label class="flex items-center cursor-pointer">
+                  <input
+                    type="radio"
+                    formControlName="Pre7"
+                    [value]="0"
+                    class="peer hidden"
+                  />
+                  <span
+                    class="w-8 h-8 rounded-full bg-green-600 text-white border border-gray-400 flex items-center justify-center peer-checked:bg-blue-500 peer-checked:border-blue-500 transition-all"
+                  >
+                    0
+                  </span>
+                </label>
+                <label class="flex items-center cursor-pointer">
+                  <input
+                    type="radio"
+                    formControlName="Pre7"
+                    [value]="1"
+                    class="peer hidden"
+                  />
+                  <span
+                    class="w-8 h-8 rounded-full bg-yellow-600 text-white border border-gray-400 flex items-center justify-center peer-checked:bg-blue-500 peer-checked:border-blue-500 transition-all"
+                  >
+                    1
+                  </span>
+                </label>
+                <label class="flex items-center cursor-pointer">
+                  <input
+                    type="radio"
+                    formControlName="Pre7"
+                    [value]="2"
+                    class="peer hidden"
+                  />
+                  <span
+                    class="w-8 h-8 rounded-full bg-orange-600 text-white border border-gray-400 flex items-center justify-center peer-checked:bg-blue-500 peer-checked:border-blue-500 transition-all"
+                  >
+                    2
+                  </span>
+                </label>
+                <label class="flex items-center cursor-pointer">
+                  <input
+                    type="radio"
+                    formControlName="Pre7"
+                    [value]="3"
+                    class="peer hidden"
+                  />
+                  <span
+                    class="w-8 h-8 rounded-full bg-red-600 text-white border border-gray-400 flex items-center justify-center peer-checked:bg-blue-500 peer-checked:border-blue-500 transition-all"
+                  >
+                    3
+                  </span>
+                </label>
+              </div>
+            </div>
+            <div
+              class="flex flex-col bg-white gap-y-4 mb-4 p-2 md:p-4 rounded-lg"
+            >
+              <span class="text-lg mb-2"
+                >8. ¿Te has movido o hablado tan lento?</span
+              >
+              <div class="options flex justify-center gap-4">
+                <label class="flex items-center cursor-pointer">
+                  <input
+                    type="radio"
+                    formControlName="Pre8"
+                    [value]="0"
+                    class="peer hidden"
+                  />
+                  <span
+                    class="w-8 h-8 rounded-full bg-green-600 text-white border border-gray-400 flex items-center justify-center peer-checked:bg-blue-500 peer-checked:border-blue-500 transition-all"
+                  >
+                    0
+                  </span>
+                </label>
+                <label class="flex items-center cursor-pointer">
+                  <input
+                    type="radio"
+                    formControlName="Pre8"
+                    [value]="1"
+                    class="peer hidden"
+                  />
+                  <span
+                    class="w-8 h-8 rounded-full bg-yellow-600 text-white border border-gray-400 flex items-center justify-center peer-checked:bg-blue-500 peer-checked:border-blue-500 transition-all"
+                  >
+                    1
+                  </span>
+                </label>
+                <label class="flex items-center cursor-pointer">
+                  <input
+                    type="radio"
+                    formControlName="Pre8"
+                    [value]="2"
+                    class="peer hidden"
+                  />
+                  <span
+                    class="w-8 h-8 rounded-full bg-orange-600 text-white border border-gray-400 flex items-center justify-center peer-checked:bg-blue-500 peer-checked:border-blue-500 transition-all"
+                  >
+                    2
+                  </span>
+                </label>
+                <label class="flex items-center cursor-pointer">
+                  <input
+                    type="radio"
+                    formControlName="Pre8"
+                    [value]="3"
+                    class="peer hidden"
+                  />
+                  <span
+                    class="w-8 h-8 rounded-full bg-red-600 text-white border border-gray-400 flex items-center justify-center peer-checked:bg-blue-500 peer-checked:border-blue-500 transition-all"
+                  >
+                    3
+                  </span>
+                </label>
+              </div>
+            </div>
+          </div>
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div
+              class="flex flex-col bg-white gap-y-4 mb-4 p-2 md:p-4 rounded-lg"
+            >
+              <span class="text-lg mb-2"
+                >9. ¿Has tenido pensamientos como: "estaría mejor muerta"?</span
+              >
+              <div class="options flex justify-center gap-4">
+                <label class="flex items-center cursor-pointer">
+                  <input
+                    type="radio"
+                    formControlName="Pre9"
+                    [value]="0"
+                    class="peer hidden"
+                  />
+                  <span
+                    class="w-8 h-8 rounded-full bg-green-600 text-white border border-gray-400 flex items-center justify-center peer-checked:bg-blue-500 peer-checked:border-blue-500 transition-all"
+                  >
+                    0
+                  </span>
+                </label>
+                <label class="flex items-center cursor-pointer">
+                  <input
+                    type="radio"
+                    formControlName="Pre9"
+                    [value]="1"
+                    class="peer hidden"
+                  />
+                  <span
+                    class="w-8 h-8 rounded-full bg-yellow-600 text-white border border-gray-400 flex items-center justify-center peer-checked:bg-blue-500 peer-checked:border-blue-500 transition-all"
+                  >
+                    1
+                  </span>
+                </label>
+                <label class="flex items-center cursor-pointer">
+                  <input
+                    type="radio"
+                    formControlName="Pre9"
+                    [value]="2"
+                    class="peer hidden"
+                  />
+                  <span
+                    class="w-8 h-8 rounded-full bg-orange-600 text-white border border-gray-400 flex items-center justify-center peer-checked:bg-blue-500 peer-checked:border-blue-500 transition-all"
+                  >
+                    2
+                  </span>
+                </label>
+                <label class="flex items-center cursor-pointer">
+                  <input
+                    type="radio"
+                    formControlName="Pre9"
+                    [value]="3"
+                    class="peer hidden"
+                  />
+                  <span
+                    class="w-8 h-8 rounded-full bg-red-600 text-white border border-gray-400 flex items-center justify-center peer-checked:bg-blue-500 peer-checked:border-blue-500 transition-all"
+                  >
+                    3
+                  </span>
+                </label>
+              </div>
+            </div>
+            <div
+              class="flex flex-col bg-white gap-y-4 mb-4 p-2 md:p-4 rounded-lg"
+            >
+              <span class="text-lg mb-2 text-justify"
+                >10.Si marcaste cualquiera de los problemas anteriores con un
+                nivel mayor a 0 ¿Qué tanta dificultad te han ocasionado en tus
+                quehaceres como: trabajo, tareas del hogar, o llevarte bien con
+                otras personas?</span
+              >
+              <div class="options flex justify-center gap-4">
+                <label class="flex items-center cursor-pointer">
+                  <input
+                    type="radio"
+                    formControlName="Pre10"
+                    [value]="0"
+                    class="peer hidden"
+                  />
+                  <span
+                    class="w-8 h-8 rounded-full bg-green-600 text-white border border-gray-400 flex items-center justify-center peer-checked:bg-blue-500 peer-checked:border-blue-500 transition-all"
+                  >
+                    0
+                  </span>
+                </label>
+                <label class="flex items-center cursor-pointer">
+                  <input
+                    type="radio"
+                    formControlName="Pre10"
+                    [value]="1"
+                    class="peer hidden"
+                  />
+                  <span
+                    class="w-8 h-8 rounded-full bg-yellow-600 text-white border border-gray-400 flex items-center justify-center peer-checked:bg-blue-500 peer-checked:border-blue-500 transition-all"
+                  >
+                    1
+                  </span>
+                </label>
+                <label class="flex items-center cursor-pointer">
+                  <input
+                    type="radio"
+                    formControlName="Pre10"
+                    [value]="2"
+                    class="peer hidden"
+                  />
+                  <span
+                    class="w-8 h-8 rounded-full bg-orange-600 text-white border border-gray-400 flex items-center justify-center peer-checked:bg-blue-500 peer-checked:border-blue-500 transition-all"
+                  >
+                    2
+                  </span>
+                </label>
+                <label class="flex items-center cursor-pointer">
+                  <input
+                    type="radio"
+                    formControlName="Pre10"
+                    [value]="3"
+                    class="peer hidden"
+                  />
+                  <span
+                    class="w-8 h-8 rounded-full bg-red-600 text-white border border-gray-400 flex items-center justify-center peer-checked:bg-blue-500 peer-checked:border-blue-500 transition-all"
+                  >
+                    3
+                  </span>
+                </label>
+              </div>
+            </div>
+          </div>
+          <div
+            class="flex flex-col bg-white gap-y-4 mb-4 p-2 md:p-4 rounded-lg"
+          >
+            <span class="text-lg mb-2 text-justify"
+              >11. ¿Cómo está tu estado de ánimo el día de hoy en la escala del
+              1 al 9?</span
+            >
+            <div class="options flex justify-center gap-8">
+              <label class="flex items-center cursor-pointer">
+                <input
+                  type="radio"
+                  formControlName="Pre11"
+                  [value]="1"
+                  class="peer hidden"
+                />
+                <span
+                  class="w-8 h-8 rounded-full bg-green-600 text-white border border-gray-400 flex items-center justify-center peer-checked:bg-blue-500 peer-checked:border-blue-500 transition-all"
+                >
+                  1
+                </span>
+              </label>
+              <label class="flex items-center cursor-pointer">
+                <input
+                  type="radio"
+                  formControlName="Pre11"
+                  [value]="2"
+                  class="peer hidden"
+                />
+                <span
+                  class="w-8 h-8 rounded-full bg-yellow-600 text-white border border-gray-400 flex items-center justify-center peer-checked:bg-blue-500 peer-checked:border-blue-500 transition-all"
+                >
+                  2
+                </span>
+              </label>
+              <label class="flex items-center cursor-pointer">
+                <input
+                  type="radio"
+                  formControlName="Pre11"
+                  [value]="3"
+                  class="peer hidden"
+                />
+                <span
+                  class="w-8 h-8 rounded-full bg-orange-600 text-white border border-gray-400 flex items-center justify-center peer-checked:bg-blue-500 peer-checked:border-blue-500 transition-all"
+                >
+                  3
+                </span>
+              </label>
+              <label class="flex items-center cursor-pointer">
+                <input
+                  type="radio"
+                  formControlName="Pre11"
+                  [value]="4"
+                  class="peer hidden"
+                />
+                <span
+                  class="w-8 h-8 rounded-full bg-orange-700 text-white border border-gray-400 flex items-center justify-center peer-checked:bg-blue-500 peer-checked:border-blue-500 transition-all"
+                >
+                  4
+                </span>
+              </label>
+              <label class="flex items-center cursor-pointer">
+                <input
+                  type="radio"
+                  formControlName="Pre11"
+                  [value]="5"
+                  class="peer hidden"
+                />
+                <span
+                  class="w-8 h-8 rounded-full bg-orange-900/80 text-white border border-gray-400 flex items-center justify-center peer-checked:bg-blue-500 peer-checked:border-blue-500 transition-all"
+                >
+                  5
+                </span>
+              </label>
+              <label class="flex items-center cursor-pointer">
+                <input
+                  type="radio"
+                  formControlName="Pre11"
+                  [value]="6"
+                  class="peer hidden"
+                />
+                <span
+                  class="w-8 h-8 rounded-full bg-red-700 text-white border border-gray-400 flex items-center justify-center peer-checked:bg-blue-500 peer-checked:border-blue-500 transition-all"
+                >
+                  6
+                </span>
+              </label>
+              <label class="flex items-center cursor-pointer">
+                <input
+                  type="radio"
+                  formControlName="Pre11"
+                  [value]="7"
+                  class="peer hidden"
+                />
+                <span
+                  class="w-8 h-8 rounded-full bg-red-800 text-white border border-gray-400 flex items-center justify-center peer-checked:bg-blue-500 peer-checked:border-blue-500 transition-all"
+                >
+                  7
+                </span>
+              </label>
+              <label class="flex items-center cursor-pointer">
+                <input
+                  type="radio"
+                  formControlName="Pre11"
+                  [value]="8"
+                  class="peer hidden"
+                />
+                <span
+                  class="w-8 h-8 rounded-full bg-red-900 text-white border border-gray-400 flex items-center justify-center peer-checked:bg-blue-500 peer-checked:border-blue-500 transition-all"
+                >
+                  8
+                </span>
+              </label>
+              <label class="flex items-center cursor-pointer">
+                <input
+                  type="radio"
+                  formControlName="Pre11"
+                  [value]="9"
+                  class="peer hidden"
+                />
+                <span
+                  class="w-8 h-8 rounded-full bg-red-950 text-white border border-gray-400 flex items-center justify-center peer-checked:bg-blue-500 peer-checked:border-blue-500 transition-all"
+                >
+                  9
+                </span>
+              </label>
+            </div>
+          </div>
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div
+              class="flex flex-col bg-white gap-y-4 mb-4 p-2 md:p-4 rounded-lg"
+            >
+              <span class="text-lg mb-2"
+                >12.¿Sufriste algún tipo de violencia?</span
+              >
+              <div class="options flex justify-center gap-4">
+                <label class="flex items-center cursor-pointer">
+                  <input
+                    type="radio"
+                    formControlName="Pre12"
+                    value="si"
+                    class="peer hidden"
+                  />
+                  <span
+                    class="w-8 h-8 rounded-full bg-green-600 text-white border border-gray-400 flex items-center justify-center peer-checked:bg-blue-500 peer-checked:border-blue-500 transition-all"
+                  >
+                    Si
+                  </span>
+                </label>
+                <label class="flex items-center cursor-pointer">
+                  <input
+                    type="radio"
+                    formControlName="Pre12"
+                    value="no"
+                    class="peer hidden"
+                  />
+                  <span
+                    class="w-8 h-8 rounded-full bg-yellow-600 text-white border border-gray-400 flex items-center justify-center peer-checked:bg-blue-500 peer-checked:border-blue-500 transition-all"
+                  >
+                    No
+                  </span>
+                </label>
+              </div>
+            </div>
+            <div
+              class="flex flex-col w-full bg-white gap-y-4 mb-4 p-2 md:p-4 rounded-lg"
+            >
+              <span class="text-lg mb-2"
+                >13. ¿ Si la respuesta anterior fue "SI", ¿de parte de
+                quién?</span
+              >
+              <div class="w-full flex justify-center gap-4">
+                <textarea
+                  title="Observaciones"
+                  formControlName="ObsPre"
+                  formControlName="Pre13"
+                  id=""
+                  rows="4"
+                  class="w-full border border-blue-500 rounded-lg outline-none py-2 px-4"
+                ></textarea>
+              </div>
+            </div>
+          </div>
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div
+              class="flex flex-col bg-white gap-y-4 mb-4 p-2 md:p-4 rounded-lg"
+            >
+              <span class="text-lg mb-2">14. Observaciones</span>
+              <div class="w-full flex justify-center gap-4">
+                <textarea
+                  title="Observaciones"
+                  formControlName="ObsPre"
+                  id=""
+                  rows="4"
+                  class="w-full border border-blue-500 rounded-lg outline-none py-2 px-4"
+                ></textarea>
+              </div>
+            </div>
+          </div>
+
+          <div class="flex items-center justify-end">
+            <button
+              type="submit"
+              class="bg-blue-600 text-white px-6 py-3 rounded-lg text-lg font-bold shadow-lg hover:bg-blue-700 transition-transform transform hover:scale-105"
+            >
+              <fa-icon [icon]="faSave" class="mr-2" />
+              Guardar
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
