@@ -1,49 +1,89 @@
-<div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4 p-4">
-  <div
-    class="bg-white shadow-lg rounded-2xl p-6 flex items-center space-x-4 border border-gray-200"
-  >
-    <fa-icon [icon]="faUsers" class="text-blue-500 text-6xl"></fa-icon>
-    <div>
-      <h3 class="text-gray-600 text-2xl font-semibold">Registrados</h3>
-      <p class="text-3xl font-bold text-gray-900">
-        {{ dashboardStats?.totalRegisteredRespondents }}
-      </p>
+<div>
+  <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4 p-4">
+    <div
+      class="bg-white shadow-lg rounded-2xl p-6 flex items-center space-x-4 border border-gray-200"
+    >
+      <fa-icon [icon]="faUsers" class="text-blue-500 text-6xl"></fa-icon>
+      <div>
+        <h3 class="text-gray-600 text-2xl font-semibold">Registrados</h3>
+        <p class="text-3xl font-bold text-gray-900">
+          {{ dashboardStats?.totalRegisteredRespondents }}
+        </p>
+      </div>
+    </div>
+    <div
+      class="bg-white shadow-lg rounded-2xl p-6 flex items-center space-x-4 border border-gray-200"
+    >
+      <fa-icon [icon]="faUserCheck" class="text-green-500 text-6xl"></fa-icon>
+      <div>
+        <h3 class="text-gray-600 text-2xl font-semibold">Encuestados</h3>
+        <p class="text-3xl font-bold text-gray-900">
+          {{ dashboardStats?.totalRespondents }}
+        </p>
+      </div>
+    </div>
+    <div
+      class="bg-white shadow-lg rounded-2xl p-6 flex items-center space-x-4 border border-gray-200"
+    >
+      <fa-icon [icon]="faClipboardList" class="text-red-500 text-6xl"></fa-icon>
+      <div>
+        <h3 class="text-gray-600 text-2xl font-semibold">Pendientes</h3>
+        <p class="text-3xl font-bold text-gray-900">
+          {{ dashboardStats?.totalUnsurveyed }}
+        </p>
+      </div>
+    </div>
+    <div
+      class="bg-white shadow-lg rounded-2xl p-6 flex items-center space-x-4 border border-gray-200"
+    >
+      <fa-icon
+        [icon]="faClipboardList"
+        class="text-yellow-500 text-6xl"
+      ></fa-icon>
+      <div>
+        <h3 class="text-gray-600 text-2xl font-semibold">Encuestas Hoy</h3>
+        <p class="text-3xl font-bold text-gray-900">
+          {{ dashboardStats?.totalSurveysToday }}
+        </p>
+      </div>
     </div>
   </div>
-  <div
-    class="bg-white shadow-lg rounded-2xl p-6 flex items-center space-x-4 border border-gray-200"
-  >
-    <fa-icon [icon]="faUserCheck" class="text-green-500 text-6xl"></fa-icon>
-    <div>
-      <h3 class="text-gray-600 text-2xl font-semibold">Encuestados</h3>
-      <p class="text-3xl font-bold text-gray-900">
-        {{ dashboardStats?.totalRespondents }}
-      </p>
+
+  <div class="grid grid-cols-[2fr_1fr] gap-2">
+    <div
+      class="bg-white shadow-lg rounded-2xl p-6 flex items-center space-x-4 border border-gray-200 flex-col w-[2fr]"
+    >
+      <div class="flex justify-between w-full items-center">
+        <h3 class="text-xl">Encuestas ralizadas por periodo</h3>
+
+        <div class="flex items-center">
+          <label for="periodSelect" class="mr-4 text-gray-600"
+            >Seleccionar Periodo:</label
+          >
+          <select
+            id="periodSelect"
+            class="border border-gray-300 rounded-lg p-2"
+            #periodSelect
+            (change)="changePeriod(periodSelect)"
+          >
+            <option value="today">Ultimo día</option>
+            <option value="week">Ultima semana</option>
+            <option value="month">Ultimo mes</option>
+            <option value="year">Ultimo año</option>
+          </select>
+        </div>
+      </div>
+
+      <canvas #chartCanvas class="w-full"></canvas>
     </div>
-  </div>
-  <div
-    class="bg-white shadow-lg rounded-2xl p-6 flex items-center space-x-4 border border-gray-200"
-  >
-    <fa-icon [icon]="faClipboardList" class="text-red-500 text-6xl"></fa-icon>
-    <div>
-      <h3 class="text-gray-600 text-2xl font-semibold">Pendientes</h3>
-      <p class="text-3xl font-bold text-gray-900">
-        {{ dashboardStats?.totalUnsurveyed }}
-      </p>
-    </div>
-  </div>
-  <div
-    class="bg-white shadow-lg rounded-2xl p-6 flex items-center space-x-4 border border-gray-200"
-  >
-    <fa-icon
-      [icon]="faClipboardList"
-      class="text-yellow-500 text-6xl"
-    ></fa-icon>
-    <div>
-      <h3 class="text-gray-600 text-2xl font-semibold">Encuestas Hoy</h3>
-      <p class="text-3xl font-bold text-gray-900">
-        {{ dashboardStats?.totalSurveysToday }}
-      </p>
+
+    <div
+      class="bg-white shadow-lg rounded-2xl p-6 flex items-center space-x-4 border border-gray-200 flex-col w-[1fr]"
+    >
+      <div class="flex justify-between w-full items-center">
+        <h3 class="text-xl">Encuestas por usuario</h3>
+      </div>
+      <canvas #chartCanvasUser class="w-full"></canvas>
     </div>
   </div>
 </div>
