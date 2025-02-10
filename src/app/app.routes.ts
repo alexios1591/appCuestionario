@@ -8,11 +8,34 @@ import { ValidacionDniComponent } from './page/cuestionario/validacion-dni/valid
 import { CuestionarioGuard } from './guards/cuestionario.guard';
 
 export const routes: Routes = [
-    {path: '', component: HomeComponent},
-    {path: 'cuestionario', component: CuestionarioComponent, canActivate: [CuestionarioGuard]},
-    {path: 'consentimiento', component: ConsentimientoComponent, canActivate: [CuestionarioGuard]},
-    {path: 'registrar', component: InsertarComponent, canActivate: [CuestionarioGuard]},
-    {path: 'login', component: LoginComponent, canActivate: [CuestionarioGuard]},
-    {path: 'validar', component: ValidacionDniComponent, canActivate: [CuestionarioGuard]},
-    {path: 'admin', loadChildren: () => import('./admin/admin.routes').then(m => m.ADMIN_ROUTES)}
+  { path: '', component: LoginComponent },
+  {
+    path: 'cuestionario',
+    component: CuestionarioComponent,
+    canActivate: [CuestionarioGuard],
+  },
+  {
+    path: 'consentimiento',
+    component: ConsentimientoComponent,
+    canActivate: [CuestionarioGuard],
+  },
+  {
+    path: 'registrar',
+    component: InsertarComponent,
+    canActivate: [CuestionarioGuard],
+  },
+  {
+    path: 'login',
+    component: LoginComponent,
+  },
+  {
+    path: 'validar',
+    component: ValidacionDniComponent,
+    canActivate: [CuestionarioGuard],
+  },
+  {
+    path: 'admin',
+    loadChildren: () =>
+      import('./admin/admin.routes').then((m) => m.ADMIN_ROUTES),
+  },
 ];
