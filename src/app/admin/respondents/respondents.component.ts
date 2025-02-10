@@ -13,6 +13,7 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { ModalClientComponent } from '../../shared/components/modal-client/modal-client.component';
+import { ModalQuestionnaireComponent } from '../../shared/components/modal-questionnaire/modal-questionnaire.component';
 
 @Component({
   selector: 'app-respondents',
@@ -22,6 +23,7 @@ import { ModalClientComponent } from '../../shared/components/modal-client/modal
     FormsModule,
     RouterModule,
     ModalClientComponent,
+    ModalQuestionnaireComponent,
   ],
   templateUrl: './respondents.component.html',
   styleUrl: './respondents.component.css',
@@ -99,6 +101,18 @@ export class RespondentsComponent {
 
   cerrarModal() {
     this.mostrarModal = false;
+    this.clienteSeleccionado = null;
+  }
+
+  showModalQuestionnaire = false;
+
+  openModalQuestionnaire(cliente: any) {
+    this.clienteSeleccionado = cliente;
+    this.showModalQuestionnaire = true;
+  }
+
+  closeModalQuestionnaire() {
+    this.showModalQuestionnaire = false;
     this.clienteSeleccionado = null;
   }
 
