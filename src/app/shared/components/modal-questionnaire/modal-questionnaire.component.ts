@@ -44,17 +44,26 @@ export class ModalQuestionnaireComponent {
       Pre10: ['', Validators.required],
       Pre11: ['', Validators.required],
       Pre12: ['', Validators.required],
-      Pre13: ['', Validators.required],
-      ObsPre: ['', Validators.required],
+      Pre13: [''],
+      ObsPre: [''],
+    });
+
+    this.form.get('Pre12')?.valueChanges.subscribe((value) => {
+      const pre13Control = this.form.get('Pre13');
+      if (value === 'si') {
+      pre13Control?.setValidators(Validators.required);
+      } else {
+      pre13Control?.clearValidators();
+      }
+      pre13Control?.updateValueAndValidity();
     });
   }
 
   ngOnInit(): void {
-    const usuario = localStorage.getItem('usuario');
+    const usuario = localStorage.getItem('user');
 
     if (usuario) {
       this.usuario = JSON.parse(usuario);
-      console.log('Datos del cliente:', this.cliente);
     }
   }
 
@@ -71,7 +80,16 @@ export class ModalQuestionnaireComponent {
         CodUsu,
         CodClie,
       };
-      console.log(formData);
+
+      Swal.fire({
+        title: 'Guardando...',
+        text: 'Por favor, espere.',
+        allowOutsideClick: false,
+        didOpen: () => {
+          Swal.showLoading();
+        },
+      });
+
       this.cuestionarioService.insert(formData).subscribe(
         (data) => {
           console.log(data);
