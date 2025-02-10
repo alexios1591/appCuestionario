@@ -5,6 +5,7 @@ import {
   faFilePdf,
   faFileExcel,
   faPlus,
+  faFileAlt,
 } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { CommonModule } from '@angular/common';
@@ -15,7 +16,13 @@ import { environment } from '../../../environments/environment';
 
 @Component({
   selector: 'app-home',
-  imports: [FontAwesomeModule, ModalComponent, CommonModule, FormsModule, RouterModule],
+  imports: [
+    FontAwesomeModule,
+    ModalComponent,
+    CommonModule,
+    FormsModule,
+    RouterModule,
+  ],
   templateUrl: './home.component.html',
   styleUrl: './home.component.css',
 })
@@ -29,6 +36,15 @@ export class HomeComponent {
   maxVisiblePages = 7;
 
   environment = environment;
+
+  faDownload = faDownload;
+  faFilePdf = faFilePdf;
+  faFileExcel = faFileExcel;
+  faPlus = faPlus;
+  faFileAlt = faFileAlt;
+
+  clienteSeleccionado: any = null;
+  mostrarModal = false;
 
   constructor(private clienteService: ClienteService) {}
 
@@ -70,7 +86,6 @@ export class HomeComponent {
           this.currentPage = data.current_page;
           this.lastPage = data.last_page;
           this.total = data.total;
-
         },
         (error) => {
           console.error('Error al obtener los clientes', error);
@@ -81,14 +96,6 @@ export class HomeComponent {
   filterClientes(): void {
     this.getClientes();
   }
-
-  faDownload = faDownload;
-  faFilePdf = faFilePdf;
-  faFileExcel = faFileExcel;
-  faPlus = faPlus;
-
-  clienteSeleccionado: any = null;
-  mostrarModal = false;
 
   abrirModal(cliente: any) {
     this.clienteSeleccionado = cliente;
