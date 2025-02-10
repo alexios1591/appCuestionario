@@ -8,7 +8,8 @@ import {
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
-import { ValidationErrorComponent } from "../validation-error/validation-error.component";
+import { ValidationErrorComponent } from '../validation-error/validation-error.component';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-modal-edit-perfil',
@@ -31,7 +32,7 @@ export class ModalEditPerfilComponent {
       NomUsu: this.user.NomUsu,
       AppUsu: this.user.AppUsu,
       ApmUsu: this.user.ApmUsu,
-      DocUsu: this.user.DocUsu,
+      DocUsu: String(this.user.DocUsu),
       EmaUsu: this.user.EmaUsu,
       CelUsu: this.user.CelUsu,
     });
@@ -56,7 +57,6 @@ export class ModalEditPerfilComponent {
     return this.userForm.controls['CelUsu'];
   }
 
-
   constructor(private userService: UserService, private fb: FormBuilder) {
     this.userForm = fb.group({
       NomUsu: [null, [Validators.required, Validators.minLength(2)]],
@@ -73,21 +73,44 @@ export class ModalEditPerfilComponent {
   }
 
   onSubmit(): void {
-    if(!this.userForm.valid) {
+    if (!this.userForm.valid) {
       this.userForm.markAllAsTouched();
       this.userForm.markAsDirty();
       return;
     }
+    Swal.fire({
+      title: 'Guardando...',
+      text: 'Por favor, espere.',
+      allowOutsideClick: false,
+      didOpen: () => {
+        Swal.showLoading();
+      },
+    });
 
-      this.userService.updateProfile(this.userForm.value, this.user.CodUsu).subscribe(
+    this.userService
+      .updateProfile(this.userForm.value, this.user.CodUsu)
+      .subscribe(
         (data) => {
-          console.log(data);
+          Swal.fire({
+            position: 'top-end',
+            text: 'Perfil actualizado correctamente.',
+            icon: 'success',
+            showConfirmButton: false,
+            timer: 1000,
+          });
+
+          this.closeModal();
         },
         (error) => {
-          console.error('Error al actualizar el perfil', error);
+          Swal.fire({
+            position: 'top-end',
+            text: 'Error al actualizar el perfil.',
+            icon: 'error',
+            showConfirmButton: false,
+            timer: 1000,
+          });
         }
-      )
-
+      );
   }
 
   faXMark = faXmark;
