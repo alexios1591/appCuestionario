@@ -37,9 +37,15 @@
   <table class="min-w-full border-collapse table-auto">
     <thead>
       <tr class="bg-gray-100 text-gray-700">
-        <th class="border-b py-3 px-4 text-left text-sm font-medium">Nombre</th>
+        <th
+          *ngIf="user.rol === 'admin'"
+          class="border-b py-3 px-4 text-left text-sm font-medium"
+        >
+          Encuestador
+        </th>
+
         <th class="border-b py-3 px-4 text-left text-sm font-medium">
-          Apellido
+          Nomvre completo
         </th>
         <th class="border-b py-3 px-4 text-left text-sm font-medium">
           Localidad
@@ -64,8 +70,10 @@
       <tr
         class="odd:bg-white even:bg-gray-50 hover:bg-gray-100 transition-colors duration-200"
       >
-        <td class="border-b py-3 px-4">{{ item.NomClie }}</td>
-        <td class="border-b py-3 px-4">{{ item.AppClie }}</td>
+        <td *ngIf="user.rol === 'admin'" class="border-b py-3 px-4">
+          {{ item.Encuestador }}
+        </td>
+        <td class="border-b py-3 px-4">{{ item.NomComp }}</td>
         <td class="border-b py-3 px-4">{{ item.localidad }}</td>
         <td class="border-b py-3 px-4">{{ item.DniClie }}</td>
         <td class="border-b py-3 px-4">{{ item.FnaClie }}</td>
@@ -78,7 +86,7 @@
               (click)="abrirModal(item)"
               class="bg-blue-500 hover:bg-blue-600 text-white py-1 px-3 rounded-md shadow-sm transition-colors duration-200"
             >
-                <fa-icon [icon]="faFileAlt"></fa-icon> Ver Reporte
+              <fa-icon [icon]="faFileAlt"></fa-icon> Ver Reporte
             </button>
           </div>
         </td>
