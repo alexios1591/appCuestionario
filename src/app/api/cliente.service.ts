@@ -22,6 +22,10 @@ export class ClienteService {
     return this.httpClient.post<any>(`/cliente`, cliente);
   }
 
+  update(cliente: any): Observable<any> {
+    return this.httpClient.put<any>(`/cliente`, cliente);
+  }
+
   getByDni(dni: string): Observable<any> {
     return this.httpClient.get<any>(`/clientes/${dni}`);
   }
