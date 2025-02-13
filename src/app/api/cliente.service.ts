@@ -31,6 +31,15 @@ export class ClienteService {
   }
 
   getUnsurveyed(ipage: number, dni: string): Observable<any> {
-    return this.httpClient.get<any>(`/clientes/unsurveyed?page=${ipage}&dni=${dni}`);
+    return this.httpClient.get<any>(
+      `/clientes/unsurveyed?page=${ipage}&dni=${dni}`
+    );
+  }
+
+  getApiDni(dni: string): Observable<any> {
+    const url = `https://dniruc.apisperu.com/api/v1/dni/${dni}?token=`;
+    const token =
+      'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJlbWFpbCI6InJlbnpvemF2YWxhMTIzQGdtYWlsLmNvbSJ9.dF8z6xdc06sllqie_fIkfgZ_ygrCgOI4TkXnKsgxvZc';
+    https: return this.httpClient.get<any>(`${url}${token}`);
   }
 }
