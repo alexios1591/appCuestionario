@@ -7,7 +7,7 @@ import {
   Input,
 } from '@angular/core';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
-import { faSave, faXmark } from '@fortawesome/free-solid-svg-icons';
+import { faSave, faXmark, faSearch, faEdit } from '@fortawesome/free-solid-svg-icons';
 import {
   FormBuilder,
   FormGroup,
@@ -28,6 +28,8 @@ import { LocalidadService } from '../../../api/localidad.service';
 export class ModalClientComponent implements OnInit {
   faSave = faSave;
   faXmark = faXmark;
+  faSearch = faSearch;
+  faEdit = faEdit;
 
   @Output() close = new EventEmitter<void>();
   @Output() getClientes = new EventEmitter<void>();
@@ -318,5 +320,60 @@ export class ModalClientComponent implements OnInit {
 
   closeModal() {
     this.close.emit();
+  }
+
+  searchDni() {
+    const dniControl = this.registroForm.get('DniClie');
+    if (!dniControl?.value || dniControl.invalid) {
+      Swal.fire({
+      text: 'Ingrese un DNI válido.',
+      icon: 'warning',
+      showConfirmButton: false,
+      timer: 1000,
+      });
+      return;
+    }
+
+    Swal.fire({
+      title: 'Buscando...',
+      text: 'Por favor, espere.',
+      allowOutsideClick: false,
+      didOpen: () => {
+        Swal.showLoading();
+      },
+    });
+
+    this.clienteService
+      .getApiDni(this.registroForm.get('DniClie')?.value)
+      .subscribe(
+        (data) => {
+          if (data.success === false) {
+            Swal.fire({
+              text: 'No se encontraron datos.',
+              icon: 'error',
+              showConfirmButton: false,
+              timer: 1000,
+            });
+            return;
+          }
+
+          Swal.close();
+          this.registroForm.get('NomClie')?.setValue(data.nombres);
+          this.registroForm.get('AppClie')?.setValue(data.apellidoPaterno);
+          this.registroForm.get('ApmClie')?.setValue(data.apellidoMaterno);
+
+          this.registroForm.get('NomClie')?.disable();
+          this.registroForm.get('AppClie')?.disable();
+          this.registroForm.get('ApmClie')?.disable();
+        },
+        (error) => {
+          Swal.fire({
+            text: 'Error al buscar DNI.',
+            icon: 'error',
+            showConfirmButton: false,
+            timer: 1000,
+          });
+        }
+      );
   }
 }
