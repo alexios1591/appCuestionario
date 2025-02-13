@@ -7,7 +7,12 @@ import {
   Input,
 } from '@angular/core';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
-import { faSave, faXmark, faSearch, faEdit } from '@fortawesome/free-solid-svg-icons';
+import {
+  faSave,
+  faXmark,
+  faSearch,
+  faEdit,
+} from '@fortawesome/free-solid-svg-icons';
 import {
   FormBuilder,
   FormGroup,
@@ -322,14 +327,25 @@ export class ModalClientComponent implements OnInit {
     this.close.emit();
   }
 
+  isSearchDniDisabled = false;
+
   searchDni() {
+    if (this.isSearchDniDisabled) {
+      this.registroForm.get('NomClie')?.enable();
+      this.registroForm.get('AppClie')?.enable();
+      this.registroForm.get('ApmClie')?.enable();
+      this.registroForm.get('DniClie')?.enable();
+      this.isSearchDniDisabled = false;
+      return;
+    }
+
     const dniControl = this.registroForm.get('DniClie');
     if (!dniControl?.value || dniControl.invalid) {
       Swal.fire({
-      text: 'Ingrese un DNI válido.',
-      icon: 'warning',
-      showConfirmButton: false,
-      timer: 1000,
+        text: 'Ingrese un DNI válido.',
+        icon: 'warning',
+        showConfirmButton: false,
+        timer: 1000,
       });
       return;
     }
@@ -365,6 +381,8 @@ export class ModalClientComponent implements OnInit {
           this.registroForm.get('NomClie')?.disable();
           this.registroForm.get('AppClie')?.disable();
           this.registroForm.get('ApmClie')?.disable();
+          this.registroForm.get('DniClie')?.disable();
+          this.isSearchDniDisabled = true;
         },
         (error) => {
           Swal.fire({

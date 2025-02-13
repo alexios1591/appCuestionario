@@ -32,11 +32,11 @@
                 />
                 <button
                   type="button"
-                    class="py-2 px-4 bg-blue-600 hover:bg-blue-700 text-white rounded-r-lg transition-colors"
+                  class="py-2 px-4 bg-blue-600 hover:bg-blue-700 text-white rounded-r-lg transition-colors"
                   (click)="searchDni()"
                   title="Buscar DNI"
                 >
-                  <fa-icon [icon]="faSearch" />
+                  <fa-icon [icon]="isSearchDniDisabled ? faEdit : faSearch" />
                 </button>
               </div>
               <small
