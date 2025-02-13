@@ -6,6 +6,7 @@ import {
   faPlus,
   faClipboardList,
   faEdit,
+  faTrash,
 } from '@fortawesome/free-solid-svg-icons';
 import { Component } from '@angular/core';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
@@ -14,6 +15,7 @@ import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { ModalClientComponent } from '../../shared/components/modal-client/modal-client.component';
 import { ModalQuestionnaireComponent } from '../../shared/components/modal-questionnaire/modal-questionnaire.component';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-respondents',
@@ -39,7 +41,8 @@ export class RespondentsComponent {
 
   faPlus = faPlus;
   faClipboardList = faClipboardList;
-  faEdit = faFilePdf;
+  faEdit = faEdit;
+  faTrash = faTrash;
 
   constructor(private clienteService: ClienteService) {}
 
@@ -168,5 +171,44 @@ export class RespondentsComponent {
     if (typeof page === 'string' || page < 1 || page > this.lastPage) return;
     this.currentPage = page;
     this.getClientes();
+  }
+
+  onDelete(id: number) {
+    Swal.fire({
+      title: '¿Estás seguro?',
+      text: 'No podrás revertir esto',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Sí, eliminarlo',
+      cancelButtonText: 'Cancelar',
+    }).then((result) => {
+      if (result.isConfirmed) {
+        Swal.fire({
+          title: 'Eliminando...',
+          text: 'Por favor, espere.',
+          allowOutsideClick: false,
+          didOpen: () => {
+            Swal.showLoading();
+          },
+        });
+
+        this.clienteService.delete(id).subscribe(
+          (data) => {
+            Swal.fire('Eliminado', 'El cliente ha sido eliminado.', 'success');
+            this.getClientes();
+          },
+          (error) => {
+            console.error('Error al eliminar cliente', error);
+            Swal.fire(
+              'Error',
+              'Hubo un problema al eliminar el cliente.',
+              'error'
+            );
+          }
+        );
+      }
+    });
   }
 }

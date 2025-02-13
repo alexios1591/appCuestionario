@@ -37,9 +37,8 @@
   <table class="min-w-full border-collapse table-auto">
     <thead>
       <tr class="bg-gray-100 text-gray-700">
-        <th class="border-b py-3 px-4 text-left text-sm font-medium">Nombre</th>
         <th class="border-b py-3 px-4 text-left text-sm font-medium">
-          Apellido
+          Nombre completo
         </th>
         <th class="border-b py-3 px-4 text-left text-sm font-medium">
           Localidad
@@ -64,8 +63,7 @@
       <tr
         class="odd:bg-white even:bg-gray-50 hover:bg-gray-100 transition-colors duration-200"
       >
-        <td class="border-b py-3 px-4">{{ item.NomClie }}</td>
-        <td class="border-b py-3 px-4">{{ item.AppClie }}</td>
+        <td class="border-b py-3 px-4">{{ item.NomComp }}</td>
         <td class="border-b py-3 px-4">{{ item.localidad }}</td>
         <td class="border-b py-3 px-4">{{ item.DniClie }}</td>
         <td class="border-b py-3 px-4">{{ item.FnaClie }}</td>
@@ -78,7 +76,6 @@
             (click)="openModalQuestionnaire(item)"
           >
             <fa-icon [icon]="faClipboardList"></fa-icon>
-            Encuestar
           </button>
 
           <button
@@ -86,7 +83,13 @@
             (click)="abrirModal(item)"
           >
             <fa-icon [icon]="faEdit"></fa-icon>
-            Editar
+          </button>
+
+          <button
+            class="bg-red-500 hover:bg-red-600 text-white py-1 px-2 rounded-md shadow-sm transition-colors duration-200 flex items-center gap-1"
+            (click)="onDelete(item.CodClie)"
+          >
+            <fa-icon [icon]="faTrash"></fa-icon>
           </button>
         </td>
       </tr>
