@@ -42,4 +42,9 @@ export class ClienteService {
       'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJlbWFpbCI6InJlbnpvemF2YWxhMTIzQGdtYWlsLmNvbSJ9.dF8z6xdc06sllqie_fIkfgZ_ygrCgOI4TkXnKsgxvZc';
     https: return this.httpClient.get<any>(`${url}${token}`);
   }
+
+  delete(id: number): Observable<any> {
+    return this.httpClient.delete<any>(`/cliente/${id}`);
+  }
+
 }
