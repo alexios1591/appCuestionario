@@ -187,6 +187,10 @@ export class ModalClientComponent implements OnInit {
         },
       });
 
+      console.log(this.registroForm.value);
+
+
+
       if (!this.cliente) {
         this.clienteService.insert(this.registroForm.value).subscribe({
           next: (data) => {
@@ -331,10 +335,6 @@ export class ModalClientComponent implements OnInit {
 
   searchDni() {
     if (this.isSearchDniDisabled) {
-      this.registroForm.get('NomClie')?.enable();
-      this.registroForm.get('AppClie')?.enable();
-      this.registroForm.get('ApmClie')?.enable();
-      this.registroForm.get('DniClie')?.enable();
       this.isSearchDniDisabled = false;
       return;
     }
@@ -378,10 +378,6 @@ export class ModalClientComponent implements OnInit {
           this.registroForm.get('AppClie')?.setValue(data.apellidoPaterno);
           this.registroForm.get('ApmClie')?.setValue(data.apellidoMaterno);
 
-          this.registroForm.get('NomClie')?.disable();
-          this.registroForm.get('AppClie')?.disable();
-          this.registroForm.get('ApmClie')?.disable();
-          this.registroForm.get('DniClie')?.disable();
           this.isSearchDniDisabled = true;
         },
         (error) => {
